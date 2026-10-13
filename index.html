@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python 3.14.6 Shell — NLP Practicals</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #f0f0f0;
+      font-family: Consolas, "Courier New", Courier, monospace;
+      color: #000000;
+      padding: 12px;
+      line-height: 1.45;
+    }
+
+    /* Window Container */
+    .idle-window {
+      background: #ffffff;
+      border: 1px solid #7a7a7a;
+      box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.2);
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    /* Windows Classic Header */
+    .idle-titlebar {
+      background: #e1e1e1;
+      border-bottom: 1px solid #adadad;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px;
+      font-size: 13px;
+      user-select: none;
+    }
+    .idle-title-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      color: #333;
+    }
+    .py-icon {
+      width: 15px;
+      height: 15px;
+    }
+    .idle-controls span {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-left: 6px;
+      border-radius: 50%;
+    }
+    .ctrl-close { background: #ff5f56; }
+    .ctrl-min { background: #ffbd2e; }
+    .ctrl-max { background: #27c93f; }
+
+    /* IDLE Menu Bar */
+    .idle-menubar {
+      background: #fbfbfb;
+      border-bottom: 1px solid #d4d4d4;
+      display: flex;
+      gap: 16px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: #222;
+      border-top: 1px solid #fff;
+    }
+    .idle-menubar span {
+      cursor: pointer;
+    }
+    .idle-menubar span:hover {
+      background: #e5f1fb;
+      outline: 1px solid #70c0e7;
+    }
+
+    /* Shell Body */
+    .idle-body {
+      padding: 14px 18px 30px;
+      font-size: 13.5px;
+      background: #ffffff;
+    }
+
+    .shell-header {
+      color: #000;
+      margin-bottom: 16px;
+      white-space: pre-wrap;
+    }
+    .shell-header .subtext {
+      color: #555;
+    }
+
+    /* Search Section Styled like Shell Interactive Prompt */
+    .search-box-wrapper {
+      background: #fdfdfd;
+      border: 1px solid #c9c9c9;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      border-radius: 2px;
+    }
+    .search-prompt-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+    .prompt-symbol {
+      color: #770000;
+      font-weight: bold;
+    }
+    .search-input {
+      flex: 1;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 14px;
+      border: 1px solid #999;
+      padding: 6px 10px;
+      outline: none;
+      background: #fff;
+    }
+    .search-input:focus {
+      border-color: #0066cc;
+      box-shadow: 0 0 4px rgba(0, 102, 204, 0.3);
+    }
+
+    /* Filter Pills */
+    .quick-tags {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .quick-tags span.label {
+      font-size: 12px;
+      color: #666;
+    }
+    .tag-btn {
+      background: #ececec;
+      border: 1px solid #bfbfbf;
+      padding: 2px 8px;
+      font-size: 11.5px;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .tag-btn:hover, .tag-btn.active {
+      background: #0066cc;
+      color: #fff;
+      border-color: #0052a3;
+    }
+
+    /* Practical Blocks */
+    .practical-item {
+      margin-top: 22px;
+      border-top: 1px dashed #bbb;
+      padding-top: 18px;
+    }
+    .restart-bar {
+      color: #0000ff;
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .copy-btn {
+      background: #f2f2f2;
+      border: 1px solid #999;
+      font-family: inherit;
+      font-size: 11px;
+      padding: 3px 9px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-weight: normal;
+      color: #222;
+    }
+    .copy-btn:hover {
+      background: #0066cc;
+      color: #fff;
+      border-color: #004499;
+    }
+
+    .aim-text {
+      color: #a52a2a;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    /* Code Block (IDLE Classic Syntax Colors) */
+    .code-box {
+      background: #fafafa;
+      border: 1px solid #e1e1e1;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 13px;
+      line-height: 1.4;
+      user-select: text;
+    }
+
+    /* IDLE Syntax Highlighting Classes */
+    .kw { color: #ff7700; font-weight: bold; } /* Keywords: import, from, for, in, if, else, def */
+    .builtin { color: #900090; } /* Builtins: print, input, list, len, enumerate */
+    .str { color: #00aa00; } /* Strings: green */
+    .com { color: #dd0000; font-style: italic; } /* Comments: red */
+
+    /* Output Block */
+    .output-title {
+      font-size: 12px;
+      color: #444;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+    .output-box {
+      color: #0000cc; /* IDLE Shell output blue */
+      background: #fff;
+      padding: 6px 10px;
+      white-space: pre-wrap;
+      font-size: 12.5px;
+      border-left: 3px solid #0000cc;
+      margin-top: 4px;
+    }
+
+    /* No results notice */
+    #no-results {
+      display: none;
+      color: #cc0000;
+      font-weight: bold;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #28a745;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      opacity: 0;
+      transition: opacity 0.25s ease-in-out;
+      pointer-events: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="idle-window">
+  <!-- Window Titlebar -->
+  <div class="idle-titlebar">
+    <div class="idle-title-left">
+      <span>🐍</span>
+      <span>Python 3.14.6 Shell — Natural Language Processing (Sem 5)</span>
+    </div>
+    <div class="idle-controls">
+      <span class="ctrl-close"></span>
+      <span class="ctrl-min"></span>
+      <span class="ctrl-max"></span>
+    </div>
+  </div>
+
+  <!-- IDLE Menu Bar -->
+  <div class="idle-menubar">
+    <span>File</span>
+    <span>Edit</span>
+    <span>Shell</span>
+    <span>Debug</span>
+    <span>Options</span>
+    <span>Window</span>
+    <span>Help</span>
+  </div>
+
+  <!-- Shell Body -->
+  <div class="idle-body">
+    <div class="shell-header">Python 3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+<span class="subtext"># Student: Mohammed Emad Nadeem Shaikh | Roll No: 48 | TY Data Science</span></div>
+
+    <!-- Search Prompt -->
+    <div class="search-box-wrapper">
+      <div class="search-prompt-line">
+        <span class="prompt-symbol">&gt;&gt;&gt;</span>
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Search by topic, keyword, or number (e.g., token, spacy, pos, trigram, tfidf, 4)..." 
+          autofocus
+        />
+      </div>
+      <div class="quick-tags">
+        <span class="label">Quick Filters:</span>
+        <button class="tag-btn active" onclick="filterTag('all')">All (1-11)</button>
+        <button class="tag-btn" onclick="filterTag('token')">Tokenization</button>
+        <button class="tag-btn" onclick="filterTag('clean')">Data Cleaning</button>
+        <button class="tag-btn" onclick="filterTag('stemming')">Stemming & Lemmatization</button>
+        <button class="tag-btn" onclick="filterTag('pos')">POS Tagging</button>
+        <button class="tag-btn" onclick="filterTag('trigram')">Trigrams</button>
+        <button class="tag-btn" onclick="filterTag('spacy')">SpaCy</button>
+        <button class="tag-btn" onclick="filterTag('ner')">NER</button>
+        <button class="tag-btn" onclick="filterTag('spell')">SpellChecker</button>
+        <button class="tag-btn" onclick="filterTag('tfidf')">TF-IDF</button>
+        <button class="tag-btn" onclick="filterTag('bayes')">Naive Bayes</button>
+      </div>
+    </div>
+
+    <!-- Container for practicals -->
+    <div id="practicals-container">
+
+      <!-- P1 -->
+      <div class="practical-item" data-id="1" data-keywords="practical 1 sentence segmentation word tokenization nltk punkt tokenize">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_01.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-1')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: To perform sentence segmentation and word tokenization on a given text using the NLTK library.</div>
+        <pre class="code-box" id="code-1"><span class="kw">import</span> nltk
+<span class="kw">from</span> nltk.tokenize <span class="kw">import</span> sent_tokenize, word_tokenize
+
+nltk.download(<span class="str">'punkt'</span>)
+nltk.download(<span class="str">'punkt_tab'</span>)
+
+text = <span class="str">"Natural Language Processing (NLP) is a branch of artificial intelligence. It helps computers read, understand, and write human language."</span>
+
+sentences = sent_tokenize(text)
+<span class="builtin">print</span>(<span class="str">"Sentence Segmentation:"</span>)
+<span class="kw">for</span> idx, sentence <span class="kw">in</span> <span class="builtin">enumerate</span>(sentences, 1):
+    <span class="builtin">print</span>(<span class="str">f"Sentence {idx}:{sentence}"</span>)
+
+<span class="builtin">print</span>(<span class="str">"\nWord Tokenization:"</span>)
+<span class="kw">for</span> idx, sentence <span class="kw">in</span> <span class="builtin">enumerate</span>(sentences, 1):
+    tokens = word_tokenize(sentence)
+    <span class="builtin">print</span>(<span class="str">f"Sentence{idx}: {tokens}"</span>)</pre>
+        <div class="output-title">Output:</div>
+        <pre class="output-box">Sentence Segmentation:
+Sentence 1:Natural Language Processing (NLP) is a branch of artificial intelligence.
+Sentence 2:It helps computers read, understand, and write human language.
+
+Word Tokenization:
+Sentence1: ['Natural', 'Language', 'Processing', '(', 'NLP', ')', 'is', 'a', 'branch', 'of', 'artificial', 'intelligence', '.']
+Sentence2: ['It', 'helps', 'computers', 'read', ',', 'understand', ',', 'and', 'write', 'human', 'language', '.']</pre>
+      </div>
+
+      <!-- P2 -->
+      <div class="practical-item" data-id="2" data-keywords="practical 2 clean dataset missing values duplicate records pandas dropna drop_duplicates">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_02.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-2')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: To clean a dataset by removing missing values and duplicate records using Pandas.</div>
+        <pre class="code-box" id="code-2"><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+df = pd.read_csv(<span class="str">"annual-enterprise-survey-2025-financial-year-provisional.csv"</span>)
+<span class="builtin">print</span>(df.head())
+
+<span class="builtin">print</span>(<span class="str">"Original Dataset:"</span>)
+<span class="builtin">print</span>(df)
+
+df = df.dropna()
+df = df.drop_duplicates()
+
+<span class="builtin">print</span>(<span class="str">"\n Cleaned Dataset:"</span>)
+<span class="builtin">print</span>(df)
+
+df.to_csv(<span class="str">"student_cleaned.csv"</span>, index=<span class="kw">False</span>)
+<span class="builtin">print</span>(<span class="str">"\n Blank values and duplicate rows removed successfully."</span>)</pre>
+        <div class="output-title">Output:</div>
+        <pre class="output-box">Cleaned Dataset:
+[60255 rows x 10 columns]
+
+Blank values and duplicate rows removed successfully.</pre>
+      </div>
+
+      <!-- P3 -->
+      <div class="practical-item" data-id="3" data-keywords="practical 3 stemming lemmatization nltk porterstemmer wordnetlemmatizer wordnet">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_03.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-3')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: To perform Stemming and Lemmatization on a given sentence using the NLTK library in python.</div>
+        <pre class="code-box" id="code-3"><span class="kw">import</span> nltk
+<span class="kw">from</span> nltk.stem <span class="kw">import</span> PorterStemmer, WordNetLemmatizer
+<span class="kw">from</span> nltk.tokenize <span class="kw">import</span> word_tokenize
+
+nltk.download(<span class="str">'punkt'</span>)
+nltk.download(<span class="str">'wordnet'</span>)
+nltk.download(<span class="str">'omw-1.4'</span>)
+
+text = <span class="str">"Do what you can, with what you have, where you are"</span>
+tokens = word_tokenize(text)
+
+stemmer = PorterStemmer()
+lemmatizer = WordNetLemmatizer()
+
+<span class="builtin">print</span>(<span class="str">"stemming:"</span>)
+<span class="kw">for</span> word <span class="kw">in</span> tokens:
+    <span class="builtin">print</span>(<span class="str">f"{word}->{stemmer.stem(word)}"</span>)
+
+<span class="builtin">print</span>(<span class="str">"\n Lemmatization:"</span>)
+<span class="kw">for</span> word <span class="kw">in</span> tokens:
+    <span class="builtin">print</span>(<span class="str">f"{word}->{lemmatizer.lemmatize(word)}"</span>)</pre>
+        <div class="output-title">Output:</div>
+        <pre class="output-box">stemming:
+Do->do
+what->what
+you->you
+can->can
+,->,
+with->with
+what->what
+you->you
+have->have
+,->,
+where->where
+you->you
+are->are
+
+Lemmatization:
+Do->Do
+what->what
+you->you
+can->can
+,->,
+with->with
+what->what
+you->you
+have->have
+,->,
+where->where
+you->you
+are->are</pre>
+      </div>
+
+      <!-- P4 -->
+      <div class="practical-item" data-id="4" data-keywords="practical 4 part-of-speech pos tagging nltk pos_tag input averaged_perceptron_tagger_eng">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_04.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-4')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: Part-of-speech (POS) tagging using NLTK.</div>
+        <pre class="code-box" id="code-4"><span class="kw">import</span> nltk
+<span class="kw">from</span> nltk.tokenize <span class="kw">import</span> word_tokenize
+<span class="kw">from</span> nltk <span class="kw">import</span> pos_tag
+
+nltk.download(<span class="str">'punkt_tab'</span>)
+nltk.download(<span class="str">'averaged_perceptron_tagger_eng'</span>)
+
+text = <span class="builtin">input</span>(<span class="str">"Enter a sentence: "</span>)
+
+words = word_tokenize(text)
+tags = pos_tag(words)
+
+<span class="builtin">print</span>(<span class="str">"\nPOS Tags:"</span>)
+<span class="kw">for</span> word, tag <span class="kw">in</span> tags:
+    <span class="builtin">print</span>(<span class="str">f"{word}--> {tag}"</span>)</pre>
+        <div class="output-title">Sample Run:</div>
+        <pre class="output-box">Enter a sentence: If you tell the truth, you do not have to remember anything
+
+POS Tags:
+If--> IN
+you--> PRP
+tell--> VBP
+the--> DT
+truth--> NN
+,--> ,
+you--> PRP
+do--> VBP
+not--> RB
+have--> VB
+to--> TO
+remember--> VB
+anything--> NN</pre>
+      </div>
+
+      <!-- P5 -->
+      <div class="practical-item" data-id="5" data-keywords="practical 5 counting part of speech pos tags counter nltk frequency">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_05.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-5')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: Counting Part-of-speech (POS) tags using NLTK.</div>
+        <pre class="code-box" id="code-5"><span class="kw">import</span> nltk
+<span class="kw">from</span> nltk.tokenize <span class="kw">import</span> word_tokenize
+<span class="kw">from</span> collections <span class="kw">import</span> Counter
+
+nltk.download(<span class="str">'punkt'</span>)
+nltk.download(<span class="str">'averaged_perceptron_tagger'</span>)
+
+text = <span class="str">"If you tell the truth, you don't have to remember anything"</span>
+
+tokens = word_tokenize(text)
+pos_tags = nltk.pos_tag(tokens)
+
+<span class="builtin">print</span>(<span class="str">"POS Tags:"</span>)
+<span class="builtin">print</span>(pos_tags)
+
+tags = [tag <span class="kw">for</span> word, tag <span class="kw">in</span> pos_tags]
+tag_count = Counter(tags)
+
+<span class="builtin">print</span>(<span class="str">"\nCount of POS Tags:"</span>)
+<span class="kw">for</span> tag, count <span class="kw">in</span> tag_count.items():
+    <span class="builtin">print</span>(<span class="str">f"{tag}:{count}"</span>)</pre>
+        <div class="output-title">Output:</div>
+        <pre class="output-box">POS Tags:
+[('If', 'IN'), ('you', 'PRP'), ('tell', 'VBP'), ('the', 'DT'), ('truth', 'NN'), (',', ','), ('you', 'PRP'), ('do', 'VBP'), ("n't", 'RB'), ('have', 'VB'), ('to', 'TO'), ('remember', 'VB'), ('anything', 'NN')]
+
+Count of POS Tags:
+IN:1
+PRP:2
+VBP:2
+DT:1
+NN:2
+,:1
+RB:1
+VB:2
+TO:1</pre>
+      </div>
+
+      <!-- P6 -->
+      <div class="practical-item" data-id="6" data-keywords="practical 6 trigrams ngrams frequency count nltk counter">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_06.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-6')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: Generation of trigrams and frequency count using NLTK.</div>
+        <pre class="code-box" id="code-6"><span class="kw">import</span> nltk
+<span class="kw">from</span> nltk.util <span class="kw">import</span> ngrams
+<span class="kw">from</span> nltk.tokenize <span class="kw">import</span> word_tokenize
+<span class="kw">from</span> collections <span class="kw">import</span> Counter
+
+nltk.download(<span class="str">'punkt'</span>)
+
+text = <span class="str">"NLP helps computers understand human language."</span>
+tokens = word_tokenize(text.lower())
+trigrams = <span class="builtin">list</span>(ngrams(tokens, 3))
+
+<span class="builtin">print</span>(<span class="str">"Generated trigrams:"</span>)
+<span class="kw">for</span> trigram <span class="kw">in</span> trigrams:
+    <span class="builtin">print</span>(trigram)
+
+trigram_freq = Counter(trigrams)
+<span class="builtin">print</span>(<span class="str">"\nTrigram Frequencies:"</span>)
+<span class="kw">for</span> trigram, freq <span class="kw">in</span> trigram_freq.items():
+    <span class="builtin">print</span>(<span class="str">f"{trigram} : {freq}"</span>)</pre>
+        <div class="output-title">Output:</div>
+        <pre class="output-box">Generated trigrams:
+('nlp', 'helps', 'computers')
+('helps', 'computers', 'understand')
+('computers', 'understand', 'human')
+('understand', 'human', 'language')
+('human', 'language', '.')
+
+Trigram Frequencies:
+('nlp', 'helps', 'computers') : 1
+('helps', 'computers', 'understand') : 1
+('computers', 'understand', 'human') : 1
+('understand', 'human', 'language') : 1
+('human', 'language', '.') : 1</pre>
+      </div>
+
+      <!-- P7 -->
+      <div class="practical-item" data-id="7" data-keywords="practical 7 spacy pos tagging neural language model en_core_web_sm">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_07.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-7')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: Part-of-speech (POS) tagging using SpaCy neural language model.</div>
+        <pre class="code-box" id="code-7"><span class="kw">import</span> spacy
+
+nlp = spacy.load(<span class="str">"en_core_web_sm"</span>)
+
+text = <span class="str">"Part-of-speech tagging labels words by their grammar."</span>
+doc = nlp(text)
+
+<span class="builtin">print</span>(<span class="str">"\nPOS Tagging using Neural Model(SpaCy):"</span>)
+<span class="kw">for</span> token <span class="kw">in</span> doc:
+    <span class="builtin">print</span>(<span class="str">f"{token.text}->{token.pos_}({token.tag_})"</span>)</pre>
+        <div class="output-title">Output:</div>
+        <pre class="output-box">POS Tagging using Neural Model(SpaCy):
+Part->NOUN(NN)
+-->PUNCT(HYPH)
+of->ADP(IN)
+-->PUNCT(HYPH)
+speech->NOUN(NN)
+tagging->VERB(VBG)
+labels->VERB(VBZ)
+words->NOUN(NNS)
+by->ADP(IN)
+their->PRON(PRP$)
+grammar->NOUN(NN)
+.->PUNCT(.)</pre>
+      </div>
+
+      <!-- P8 -->
+      <div class="practical-item" data-id="8" data-keywords="practical 8 named entity recognition ner spacy persons organizations locations dates">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_08.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-8')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: To perform Named Entity Recognition (NER) on a given sentence using SpaCy to identify entities such as persons, organizations, locations and dates.</div>
+        <pre class="code-box" id="code-8"><span class="kw">import</span> spacy
+
+nlp = spacy.load(<span class="str">"en_core_web_sm"</span>)
+
+text = <span class="builtin">input</span>(<span class="str">"Enter a sentence: "</span>)
+doc = nlp(text)
+
+<span class="kw">if</span> <span class="builtin">len</span>(doc.ents) == 0:
+    <span class="builtin">print</span>(<span class="str">"\nNo Named Entity Found."</span>)
+    <span class="builtin">print</span>(<span class="str">"Please enter a sentence containing a person's name, organization, place, date, etc."</span>)
+<span class="kw">else</span>:
+    <span class="builtin">print</span>(<span class="str">"\nNamed Entities Found:\n"</span>)
+    <span class="kw">for</span> ent <span class="kw">in</span> doc.ents:
+        <span class="builtin">print</span>(<span class="str">f"{ent.text}->{ent.label_}"</span>)</pre>
+        <div class="output-title">Sample Run:</div>
+        <pre class="output-box">Enter a sentence: Qin Shi Huang (February 259 - 12 July 210 BC) was the founder of the Qin dynasty and the first emperor of China
+
+Named Entities Found:
+
+Qin Shi Huang->PERSON
+February 259->DATE
+12 July->DATE
+BC->ORG
+Qin->PERSON
+first->ORDINAL
+China->GPE</pre>
+      </div>
+
+      <!-- P9 -->
+      <div class="practical-item" data-id="9" data-keywords="practical 9 spell checking correction spellchecker pyspellchecker misspelled words">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_09.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-9')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: To implement spell checking for English text by identifying and correcting misspelled words using the Spellchecker library in Python.</div>
+        <pre class="code-box" id="code-9"><span class="kw">from</span> spellchecker <span class="kw">import</span> SpellChecker
+
+spell = SpellChecker()
+sentence = <span class="builtin">input</span>(<span class="str">"Enter a sentence: "</span>)
+words = sentence.split()
+corrected = []
+
+<span class="kw">for</span> word <span class="kw">in</span> words:
+    corrected.append(spell.correction(word))
+
+<span class="builtin">print</span>(<span class="str">"\nOriginal Sentence:"</span>)
+<span class="builtin">print</span>(sentence)
+<span class="builtin">print</span>(<span class="str">"\nCorrected Sentence:"</span>)
+<span class="builtin">print</span>(<span class="str">" "</span>.join(corrected))</pre>
+        <div class="output-title">Sample Run:</div>
+        <pre class="output-box">Enter a sentence: I stduy data sciencee
+
+Original Sentence:
+I stduy data sciencee
+
+Corrected Sentence:
+I study data science</pre>
+      </div>
+
+      <!-- P10 -->
+      <div class="practical-item" data-id="10" data-keywords="practical 10 tf-idf term frequency inverse document frequency vectorization scikit-learn sklearn tfidfvectorizer">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_10.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-10')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: To implement TF-IDF (Term Frequency–Inverse Document Frequency) vectorization using the Scikit-learn library in Python and convert text documents into numerical feature vectors.</div>
+        <pre class="code-box" id="code-10"><span class="kw">from</span> sklearn.feature_extraction.text <span class="kw">import</span> TfidfVectorizer
+
+documents = [
+    <span class="str">"Data science extracts valuable insights from massive amounts of data"</span>,
+    <span class="str">"It powers everyday technology like predictive algorithms."</span>,
+    <span class="str">"By turning raw data into actionable strategies, it helps organizations make smarter, faster, and more evidence-based decisions."</span>
+]
+
+vectorizer = TfidfVectorizer()
+tfidf_matrix = vectorizer.fit_transform(documents)
+
+<span class="builtin">print</span>(<span class="str">"Feature Names:"</span>)
+<span class="builtin">print</span>(vectorizer.get_feature_names_out())
+<span class="builtin">print</span>(<span class="str">"\nTF-IDF Matrix:"</span>)
+<span class="builtin">print</span>(tfidf_matrix.toarray())</pre>
+        <div class="output-title">Output:</div>
+        <pre class="output-box">Feature Names:
+['algorithms' 'amounts' 'and' 'based' 'data' 'decisions' 'everyday'
+ 'evidence' 'extracts' 'faster' 'from' 'helps' 'insights' 'it' 'like'
+ 'make' 'massive' 'more' 'of' 'organizations' 'powers' 'predictive'
+ 'science' 'smarter' 'technology' 'valuable']
+
+TF-IDF Matrix:
+[[0.         0.28867513 0.         0.         0.57735027 0.        ...]
+ [0.38988801 0.         0.         0.         0.         0.        ...]
+ [0.         0.         0.30746099 0.30746099 0.         0.30746099...]]</pre>
+      </div>
+
+      <!-- P11 -->
+      <div class="practical-item" data-id="11" data-keywords="practical 11 text classification countvectorizer multinomial naive bayes multinomialnb scikit-learn sports education">
+        <div class="restart-bar">
+          <span>========================= RESTART: practical_11.py =========================</span>
+          <button class="copy-btn" onclick="copyCode('code-11')">📋 Copy Code</button>
+        </div>
+        <div class="aim-text">Aim: To implement text classification using CountVectorizer and the Multinomial Naive Bayes algorithm using the Scikit-learn library in Python.</div>
+        <pre class="code-box" id="code-11"><span class="kw">from</span> sklearn.feature_extraction.text <span class="kw">import</span> CountVectorizer
+<span class="kw">from</span> sklearn.naive_bayes <span class="kw">import</span> MultinomialNB
+
+text = [
+    <span class="str">"I like cricket"</span>,
+    <span class="str">"Football is my favorite sport"</span>,
+    <span class="str">"I watch cricket matches"</span>,
+    <span class="str">"I like studying computer science"</span>,
+    <span class="str">"Python is easy to learn"</span>,
+    <span class="str">"I study mathematics"</span>
+]
+
+category = [
+    <span class="str">"Sports"</span>,
+    <span class="str">"Sports"</span>,
+    <span class="str">"Sports"</span>,
+    <span class="str">"Education"</span>,
+    <span class="str">"Education"</span>,
+    <span class="str">"Education"</span>
+]
+
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(text)
+
+model = MultinomialNB()
+model.fit(X, category)
+
+sentence = <span class="builtin">input</span>(<span class="str">"Enter a sentence: "</span>)
+sentence_vector = vectorizer.transform([sentence])
+
+<span class="kw">if</span> sentence_vector.nnz == 0:
+    <span class="builtin">print</span>(<span class="str">"Not trained for this data"</span>)
+<span class="kw">else</span>:
+    result = model.predict(sentence_vector)
+    <span class="builtin">print</span>(<span class="str">"Category:"</span>, result[0])</pre>
+        <div class="output-title">Sample Run:</div>
+        <pre class="output-box">Enter a sentence: I like cricket
+Category: Sports</pre>
+      </div>
+
+    </div>
+
+    <!-- No results indicator -->
+    <div id="no-results">
+      Traceback (most recent call last):<br>
+      NameError: name 'practical_not_found' is not defined. Try searching by keyword like 'pos', 'ner', 'tfidf', or number '1' to '11'.
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast">Code copied to clipboard!</div>
+
+<script>
+  const searchInput = document.getElementById('search-input');
+  const items = document.querySelectorAll('.practical-item');
+  const noResults = document.getElementById('no-results');
+  const tagButtons = document.querySelectorAll('.tag-btn');
+
+  function filterPracticals(query) {
+    const q = query.trim().toLowerCase();
+    let visibleCount = 0;
+
+    items.forEach(item => {
+      const keywords = item.getAttribute('data-keywords') || '';
+      const textContent = item.innerText.toLowerCase();
+
+      if (!q || keywords.includes(q) || textContent.includes(q)) {
+        item.style.display = 'block';
+        visibleCount++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+  }
+
+  searchInput.addEventListener('input', (e) => {
+    tagButtons.forEach(b => b.classList.remove('active'));
+    filterPracticals(e.target.value);
+  });
+
+  function filterTag(tag) {
+    tagButtons.forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+
+    if (tag === 'all') {
+      searchInput.value = '';
+      filterPracticals('');
+    } else {
+      searchInput.value = tag;
+      filterPracticals(tag);
+    }
+  }
+
+  function copyCode(elementId) {
+    const pre = document.getElementById(elementId);
+    if (!pre) return;
+
+    // Extract pure code without HTML tags
+    const textToCopy = pre.innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      showToast('Copied code to clipboard!');
+    }).catch(() => {
+      // Fallback
+      const textarea = document.createElement('textarea');
+      textarea.value = textToCopy;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      showToast('Copied code to clipboard!');
+    });
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.innerText = msg;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 1800);
+  }
+</script>
+
+</body>
+</html>
