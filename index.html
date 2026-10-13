@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script>
+    if (window.location.hostname !== 'examhack-py.vercel.app') {
+      window.location.replace('https://examhack-py.vercel.app' + window.location.search + window.location.hash);
+    }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IDLE Shell 3.14.6</title>
   <style>
