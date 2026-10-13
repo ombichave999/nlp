@@ -1,0 +1,8 @@
+Year,Industry_aggregation_NZSIOC,Industry_code_NZSIOC,Industry_name_NZSIOC,Units,Variable_code,Variable_name,Variable_category,Value,Industry_code_ANZSIC06
+2025,Level 1,99999,All industries,Dollars (millions),H01,Total income,Financial performance,976077,ANZSIC06 divisions A-S
+2025,Level 1,99999,All industries,Dollars (millions),H04,Sales, government funding,Financial performance,854561,ANZSIC06 divisions A-S
+2025,Level 1,99999,All industries,Dollars (millions),H05,Interest, dividends,Financial performance,96238,ANZSIC06 divisions A-S
+2025,Level 1,99999,All industries,Dollars (millions),H07,Non-operating income,Financial performance,25279,ANZSIC06 divisions A-S
+2025,Level 1,99999,All industries,Dollars (millions),H08,Total expenditure,Financial performance,867750,ANZSIC06 divisions A-S
+2025,Level 1,99999,All industries,Dollars (millions),H08,Total expenditure,Financial performance,867750,ANZSIC06 divisions A-S
+2025,Level 1,99999,All industries,Dollars (millions),H09,Missing Row Example,Financial performance,,ANZSIC06 divisions A-S
