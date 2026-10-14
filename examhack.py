@@ -14,33 +14,29 @@
 
   <style>
     :root {
-      /* Dark Theme (Default - matches user screenshot) */
+      /* Dark Theme (Exact match to Colab 2026 screenshot) */
       --colab-bg: #131314;
       --colab-topbar-bg: #1e1f20;
       --colab-surface: #1e1f20;
       --colab-canvas-bg: #131314;
       --colab-card-bg: #1e1f20;
       --colab-border: #444746;
-      --colab-subtle-border: #2e3134;
+      --colab-subtle-border: #282a2c;
       --colab-text-primary: #e3e3e3;
       --colab-text-secondary: #c4c7c5;
       --colab-text-muted: #8e918f;
       --colab-accent-blue: #a8c7fa;
       --colab-accent-blue-btn: #0b57d0;
-      --colab-accent-orange: #f9ab00;
       --colab-cell-border: #444746;
-      --colab-cell-active-border: #a8c7fa;
+      --colab-cell-active-border: #8ab4f8;
       --colab-cell-bg: #1e1f20;
       --colab-hover-bg: #2d2f31;
       --colab-btn-bg: #282a2c;
-      --colab-gemini-bg: #1e1f20;
-      --colab-gemini-pill: #282a2c;
-      --colab-gemini-pill-hover: #333538;
       --colab-banner-bg: #004a77;
       --colab-banner-text: #c2e7ff;
       --colab-bottombar-bg: #1e1f20;
 
-      /* Syntax Highlighting Dark */
+      /* Syntax Highlighting */
       --tok-kw: #c586c0;
       --tok-builtin: #4ec9b0;
       --tok-str: #ce9178;
@@ -52,7 +48,7 @@
 
     [data-theme="light"] {
       /* Light Theme */
-      --colab-bg: #f8f9fa;
+      --colab-bg: #ffffff;
       --colab-topbar-bg: #ffffff;
       --colab-surface: #ffffff;
       --colab-canvas-bg: #ffffff;
@@ -64,20 +60,15 @@
       --colab-text-muted: #747775;
       --colab-accent-blue: #0b57d0;
       --colab-accent-blue-btn: #0b57d0;
-      --colab-accent-orange: #e37400;
       --colab-cell-border: #dadce0;
-      --colab-cell-active-border: #0b57d0;
+      --colab-cell-active-border: #1a73e8;
       --colab-cell-bg: #f8f9fa;
       --colab-hover-bg: #f1f3f4;
       --colab-btn-bg: #f1f3f4;
-      --colab-gemini-bg: #f0f4f9;
-      --colab-gemini-pill: #ffffff;
-      --colab-gemini-pill-hover: #e3e3e3;
       --colab-banner-bg: #0b57d0;
       --colab-banner-text: #ffffff;
       --colab-bottombar-bg: #ffffff;
 
-      /* Syntax Highlighting Light */
       --tok-kw: #a71d5d;
       --tok-builtin: #0086b3;
       --tok-str: #183691;
@@ -109,7 +100,7 @@
       background: var(--colab-banner-bg);
       color: var(--colab-banner-text);
       font-size: 13px;
-      padding: 8px 16px;
+      padding: 7px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -124,13 +115,13 @@
     }
 
     .banner-icon {
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .banner-right {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .banner-link {
@@ -148,10 +139,6 @@
       font-size: 15px;
       padding: 2px 6px;
       border-radius: 4px;
-    }
-
-    .banner-close-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
     }
 
     /* 2. Top Header */
@@ -172,7 +159,6 @@
       gap: 12px;
     }
 
-    /* Colab Orange Infinity Logo */
     .colab-logo {
       display: flex;
       align-items: center;
@@ -189,13 +175,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-
-    /* Google Drive Triangle Logo */
-    .drive-icon {
-      width: 16px;
-      height: 16px;
-      vertical-align: middle;
     }
 
     .notebook-title {
@@ -217,6 +196,13 @@
       color: var(--colab-text-muted);
       cursor: pointer;
       font-size: 14px;
+    }
+
+    .cloud-icon {
+      color: var(--colab-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
     }
 
     .menu-row {
@@ -245,7 +231,7 @@
       gap: 10px;
     }
 
-    /* Light / Dark Theme Button (User requested!) */
+    /* Light Theme / Dark Theme Toggle Button */
     .theme-toggle-btn {
       display: inline-flex;
       align-items: center;
@@ -296,14 +282,12 @@
       align-items: center;
       gap: 6px;
       cursor: pointer;
-      transition: background 0.15s;
     }
 
     .share-pill-btn:hover {
       background: #0842a0;
     }
 
-    /* Profile Avatar (Om) */
     .user-avatar-circle {
       width: 30px;
       height: 30px;
@@ -316,10 +300,9 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      overflow: hidden;
     }
 
-    /* 3. Secondary Toolbar (Commands / Code / Text / Run all / Connect) */
+    /* 3. Secondary Toolbar */
     .colab-toolbar {
       background: var(--colab-topbar-bg);
       border-bottom: 1px solid var(--colab-subtle-border);
@@ -366,8 +349,7 @@
       font-size: 12px;
     }
 
-    /* Search & Jump Select in toolbar */
-    .toolbar-search {
+    .search-filter-input {
       height: 28px;
       background: var(--colab-btn-bg);
       border: 1px solid var(--colab-border);
@@ -376,16 +358,16 @@
       font-size: 12px;
       color: var(--colab-text-primary);
       outline: none;
-      width: 220px;
+      width: 200px;
       font-family: inherit;
     }
 
-    .toolbar-search:focus {
+    .search-filter-input:focus {
       border-color: var(--colab-accent-blue);
-      width: 260px;
+      width: 240px;
     }
 
-    .toolbar-select {
+    .quick-jump-select {
       height: 28px;
       background: var(--colab-btn-bg);
       border: 1px solid var(--colab-border);
@@ -430,7 +412,7 @@
       border-radius: 50%;
     }
 
-    /* 4. Main Body: Activity Bar + Left Notebook + Right Gemini Panel */
+    /* 4. Body Area: Left Activity Bar + FULL-WIDTH Left-Aligned Canvas */
     .colab-body-wrapper {
       display: flex;
       flex: 1;
@@ -441,7 +423,7 @@
 
     /* Left Activity Bar */
     .activity-bar {
-      width: 44px;
+      width: 48px;
       background: var(--colab-surface);
       border-right: 1px solid var(--colab-subtle-border);
       display: flex;
@@ -477,41 +459,34 @@
       background: rgba(168, 199, 250, 0.12);
     }
 
-    /* Main Split Content */
-    .split-container {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-      position: relative;
-      background: var(--colab-canvas-bg);
-    }
-
-    /* Left Panel: Notebook Canvas */
+    /* Notebook Canvas: FULL WIDTH, LEFT-ALIGNED (Matches screenshot 2!) */
     .notebook-panel {
       flex: 1;
       overflow-y: auto;
-      padding: 18px 24px 80px 24px;
+      padding: 16px 20px 90px 20px;
       scroll-behavior: smooth;
     }
 
     .notebook-inner-content {
-      max-width: 860px;
-      margin: 0 auto;
+      width: 100%;
+      max-width: 100%; /* No centering! Full width! */
+      margin: 0; /* Left aligned! */
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
-    /* Top Starter Cell (From user screenshot: "Start coding or generate with AI.") */
+    /* Top Starter Cell (Exact screenshot 2 match: stretches full width) */
     .starter-cell-box {
+      width: 100%;
       border: 1px solid var(--colab-cell-active-border);
-      border-radius: 14px;
+      border-radius: 12px;
       background: var(--colab-cell-bg);
-      padding: 10px 14px;
+      padding: 8px 14px;
       display: flex;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     }
 
     .starter-left {
@@ -561,8 +536,9 @@
     .starter-actions {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       color: var(--colab-text-muted);
+      font-size: 13px;
     }
 
     .starter-act-icon {
@@ -579,7 +555,8 @@
     /* Colab Cells (Markdown & Code) */
     .colab-cell {
       position: relative;
-      border-radius: 14px;
+      width: 100%;
+      border-radius: 12px;
       border: 1px solid var(--colab-cell-border);
       background: var(--colab-cell-bg);
       overflow: hidden;
@@ -634,35 +611,35 @@
       font-weight: bold;
     }
 
-    /* Text / Markdown cell */
+    /* Markdown Cell */
     .markdown-cell {
-      padding: 14px 18px;
+      padding: 12px 16px;
       line-height: 1.6;
     }
 
     .markdown-cell h1 {
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 600;
       color: var(--colab-text-primary);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       border-bottom: 1px solid var(--colab-subtle-border);
       padding-bottom: 4px;
     }
 
     .markdown-cell h2 {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--colab-text-primary);
-      margin: 12px 0 6px 0;
+      margin: 10px 0 4px 0;
     }
 
     .markdown-cell h3 {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--colab-accent-blue);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin: 10px 0 4px 0;
+      margin: 8px 0 3px 0;
     }
 
     .markdown-cell p {
@@ -674,11 +651,11 @@
     .markdown-cell ol, .markdown-cell ul {
       margin-left: 20px;
       font-size: 13.5px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .markdown-cell li {
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     /* Code Cell */
@@ -782,177 +759,6 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
 
-    /* Right Panel: Gemini Assistant Panel (As in screenshot) */
-    .gemini-panel {
-      width: 440px;
-      background: var(--colab-gemini-bg);
-      border-left: 1px solid var(--colab-subtle-border);
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-      transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-    }
-
-    .gemini-panel.collapsed {
-      width: 0;
-      border-left: none;
-      overflow: hidden;
-    }
-
-    .gemini-header {
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--colab-subtle-border);
-    }
-
-    .gemini-title {
-      font-size: 14px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--colab-text-primary);
-    }
-
-    .gemini-header-icons {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--colab-text-muted);
-    }
-
-    .gemini-icon-btn {
-      background: transparent;
-      border: none;
-      color: inherit;
-      cursor: pointer;
-      font-size: 14px;
-      padding: 3px 5px;
-      border-radius: 4px;
-    }
-
-    .gemini-icon-btn:hover {
-      background: var(--colab-hover-bg);
-      color: var(--colab-text-primary);
-    }
-
-    /* Gemini Body */
-    .gemini-body {
-      flex: 1;
-      padding: 24px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow-y: auto;
-    }
-
-    .gemini-greeting {
-      font-size: 26px;
-      font-weight: 600;
-      color: var(--colab-accent-blue);
-      margin-bottom: 6px;
-    }
-
-    .gemini-subtitle {
-      font-size: 13.5px;
-      color: var(--colab-text-secondary);
-      margin-bottom: 24px;
-    }
-
-    .gemini-suggestions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-      max-width: 340px;
-    }
-
-    .suggestion-pill {
-      background: var(--colab-gemini-pill);
-      border: 1px solid var(--colab-border);
-      border-radius: 20px;
-      padding: 8px 14px;
-      font-size: 12.5px;
-      color: var(--colab-text-primary);
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.15s;
-    }
-
-    .suggestion-pill:hover {
-      background: var(--colab-gemini-pill-hover);
-      border-color: var(--colab-accent-blue);
-    }
-
-    /* Gemini Chat Box at Bottom */
-    .gemini-input-card {
-      margin: 14px 16px;
-      background: var(--colab-card-bg);
-      border: 1px solid var(--colab-border);
-      border-radius: 18px;
-      padding: 10px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .gemini-input-box {
-      width: 100%;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--colab-text-primary);
-      font-size: 13px;
-      font-family: inherit;
-    }
-
-    .gemini-input-box::placeholder {
-      color: var(--colab-text-muted);
-    }
-
-    .gemini-input-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--colab-text-muted);
-    }
-
-    .gemini-input-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .gemini-input-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .model-selector {
-      font-size: 12px;
-      color: var(--colab-text-secondary);
-      cursor: pointer;
-    }
-
-    .send-arrow-btn {
-      background: transparent;
-      border: none;
-      color: var(--colab-text-muted);
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .send-arrow-btn:hover {
-      color: var(--colab-accent-blue);
-    }
-
     /* 5. Bottom Bar (Variables, Terminal, Sparkle) */
     .colab-bottombar {
       height: 28px;
@@ -985,7 +791,7 @@
       color: var(--colab-text-primary);
     }
 
-    /* Floating Blue Sparkle */
+    /* Floating Center Blue Sparkle Button */
     .floating-sparkle-center {
       position: absolute;
       bottom: 6px;
@@ -1027,15 +833,6 @@
     .colab-toast.show {
       transform: translateX(-50%) translateY(0);
     }
-
-    @media (max-width: 900px) {
-      .gemini-panel {
-        display: none;
-      }
-      .colab-announcement-banner {
-        font-size: 11px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -1055,7 +852,6 @@
   <!-- 2. Colab Header -->
   <header class="colab-header">
     <div class="header-left">
-      <!-- Colab Orange Infinity Logo -->
       <a href="#" class="colab-logo" title="Google Colaboratory">
         <svg viewBox="0 0 32 32" width="28" height="28">
           <g fill="none" fill-rule="evenodd">
@@ -1068,7 +864,6 @@
 
       <div class="title-and-menu">
         <div class="title-row">
-          <!-- Google Drive Triangle Logo -->
           <svg class="drive-icon" viewBox="0 0 87.3 78" width="16" height="16">
             <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
             <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.4-1.2 2.95-1.2 4.5h27.5z" fill="#00ac47"/>
@@ -1079,16 +874,19 @@
           </svg>
           <span class="notebook-title" contenteditable="true" spellcheck="false">Untitled2.ipynb</span>
           <span class="star-icon" title="Star notebook">☆</span>
+          <span class="cloud-icon" title="Changes saved to Drive">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM10 17l-3.5-3.5 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </span>
         </div>
 
         <nav class="menu-row">
           <span onclick="triggerFilter()">File</span>
           <span onclick="copyAllCode()">Edit</span>
-          <span onclick="toggleGeminiPanel()">View</span>
+          <span onclick="showToast('View')">View</span>
           <span onclick="showToast('Cell inserted')">Insert</span>
           <span onclick="runAllNotebookCells()">Runtime</span>
           <span onclick="toggleTheme()">Tools</span>
-          <span onclick="showToast('Colab 2026 UI Active')">Help</span>
+          <span onclick="showToast('Colab 2026 UI')">Help</span>
         </nav>
       </div>
     </div>
@@ -1113,7 +911,6 @@
         Share
       </button>
 
-      <!-- Avatar for Om -->
       <div class="user-avatar-circle" title="Om Aryan (ombichave999@gmail.com)">O</div>
     </div>
   </header>
@@ -1138,19 +935,19 @@
         Run all ▾
       </button>
 
-      <!-- Live Search & Practical Jump -->
-      <input type="text" id="liveSearchInput" class="toolbar-search" placeholder="Search keywords (ANOVA, BART...)" oninput="filterNotebook(this.value)">
+      <!-- Discreet search and jump -->
+      <input type="text" id="liveSearchInput" class="search-filter-input" placeholder="Search (ANOVA, BART...)" oninput="filterNotebook(this.value)">
 
-      <select class="toolbar-select" onchange="jumpToSection(this.value)">
+      <select class="quick-jump-select" onchange="jumpToSection(this.value)">
         <option value="">Jump to Practical...</option>
         <option value="p1">Practical 1: Next Word Prediction</option>
-        <option value="p2">Practical 2: Text Gen & BART Summarization</option>
-        <option value="p3">Practical 3: Gemini AI Tutor Chatbot</option>
-        <option value="p4">Practical 4: Intro to GenAI (6 Sub-Parts)</option>
-        <option value="p5">Practical 5: GPT-2 & Customer Service</option>
-        <option value="p6">Practical 6: Superstore Data Analysis & Plots</option>
-        <option value="p7">Practical 7: PCA Dimensionality Reduction</option>
-        <option value="p8">Practical 8: ANOVA & Hypothesis T-Tests</option>
+        <option value="p2">Practical 2: Text Gen & BART</option>
+        <option value="p3">Practical 3: Gemini AI Tutor</option>
+        <option value="p4">Practical 4: Intro to GenAI</option>
+        <option value="p5">Practical 5: GPT-2 & Customer</option>
+        <option value="p6">Practical 6: Superstore Plots</option>
+        <option value="p7">Practical 7: PCA Reduction</option>
+        <option value="p8">Practical 8: Statistical Tests</option>
       </select>
     </div>
 
@@ -1162,7 +959,7 @@
     </div>
   </div>
 
-  <!-- 4. Body (Activity Bar + Left Notebook + Right Gemini Panel) -->
+  <!-- 4. Body (Full width left-aligned notebook) -->
   <div class="colab-body-wrapper">
     
     <!-- Left Activity Bar -->
@@ -1176,7 +973,7 @@
       <button class="act-btn" title="Code snippets" onclick="copyAllCode()">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
       </button>
-      <button class="act-btn" title="AI Assistant" onclick="toggleGeminiPanel()">
+      <button class="act-btn" title="AI Assistant" onclick="showToast('AI Assistant active')">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
       </button>
       <button class="act-btn" title="Secrets" onclick="showToast('Secrets storage')">
@@ -1190,70 +987,67 @@
       </button>
     </div>
 
-    <!-- Main Split Area -->
-    <div class="split-container">
-      
-      <!-- Left Panel: Notebook Canvas -->
-      <div class="notebook-panel" id="notebookPanel">
-        <div class="notebook-inner-content">
+    <!-- Notebook Panel: FULL-WIDTH & LEFT-ALIGNED (Matches screenshot 2) -->
+    <div class="notebook-panel" id="notebookPanel">
+      <div class="notebook-inner-content">
 
-          <!-- Screenshot Starter Cell -->
-          <div class="starter-cell-box">
-            <div class="starter-left">
-              <span class="starter-bracket">[ ]</span>
-              <button class="starter-run-btn" onclick="showToast('Enter code to run')">▶</button>
+        <!-- Top Starter Cell (Stretching full width like screenshot 2) -->
+        <div class="starter-cell-box">
+          <div class="starter-left">
+            <span class="starter-bracket">[ ]</span>
+            <button class="starter-run-btn" onclick="showToast('Cell ready')">▶</button>
+          </div>
+          <input type="text" class="starter-input" placeholder="Start coding or generate with AI." onkeydown="handleStarterEnter(event, this)">
+          <div class="starter-actions">
+            <span class="starter-act-icon">↑</span>
+            <span class="starter-act-icon">↓</span>
+            <span class="starter-act-icon">✎</span>
+            <span class="starter-act-icon">🗑️</span>
+            <span class="starter-act-icon">⋮</span>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             PRACTICAL NO. 1
+             ========================================== -->
+        <div id="p1" class="practical-block">
+          <div class="colab-cell markdown-cell">
+            <div class="cell-top-hover-bar">
+              <button class="cell-action-icon copy-btn" onclick="copyCellText(this)">Copy Text</button>
             </div>
-            <input type="text" class="starter-input" placeholder="Start coding or generate with AI." onkeydown="handleStarterEnter(event, this)">
-            <div class="starter-actions">
-              <span class="starter-act-icon">↑</span>
-              <span class="starter-act-icon">↓</span>
-              <span class="starter-act-icon">✎</span>
-              <span class="starter-act-icon">🗑️</span>
-              <span class="starter-act-icon">⋮</span>
-            </div>
+            <h1>Practical No. 1: Mini Generative AI – Next Word Prediction</h1>
+            <h3>Aim</h3>
+            <p>To understand the basic concept of Generative Artificial Intelligence by developing a simple next-word prediction model using Python.</p>
+            <h3>Theory</h3>
+            <p>Generative Artificial Intelligence (Generative AI) is a branch of AI that creates new content such as text, images, audio, and code by learning patterns from existing data. One of the simplest text generation techniques is next-word prediction, where the system predicts the most probable next word based on previously learned word sequences. This concept is the basic building block of modern Large Language Models (LLMs) like ChatGPT.</p>
+            <h3>Algorithm</h3>
+            <ol>
+              <li>Start the program.</li>
+              <li>Create a list of sample sentences.</li>
+              <li>Split each sentence into individual words.</li>
+              <li>Store every word along with its next word in a dictionary.</li>
+              <li>Display the learned model.</li>
+              <li>Accept a starting word from the user.</li>
+              <li>Randomly select the next word from the learned dictionary.</li>
+              <li>Repeat the process until no next word is available or the desired number of words is generated.</li>
+              <li>Display the generated text.</li>
+              <li>Stop.</li>
+            </ol>
           </div>
 
-          <!-- ==========================================
-               PRACTICAL NO. 1
-               ========================================== -->
-          <div id="p1" class="practical-block">
-            <div class="colab-cell markdown-cell">
-              <div class="cell-top-hover-bar">
-                <button class="cell-action-icon copy-btn" onclick="copyCellText(this)">Copy Text</button>
-              </div>
-              <h1>Practical No. 1: Mini Generative AI – Next Word Prediction</h1>
-              <h3>Aim</h3>
-              <p>To understand the basic concept of Generative Artificial Intelligence by developing a simple next-word prediction model using Python.</p>
-              <h3>Theory</h3>
-              <p>Generative Artificial Intelligence (Generative AI) is a branch of AI that creates new content such as text, images, audio, and code by learning patterns from existing data. One of the simplest text generation techniques is next-word prediction, where the system predicts the most probable next word based on previously learned word sequences. This concept is the basic building block of modern Large Language Models (LLMs) like ChatGPT.</p>
-              <h3>Algorithm</h3>
-              <ol>
-                <li>Start the program.</li>
-                <li>Create a list of sample sentences.</li>
-                <li>Split each sentence into individual words.</li>
-                <li>Store every word along with its next word in a dictionary.</li>
-                <li>Display the learned model.</li>
-                <li>Accept a starting word from the user.</li>
-                <li>Randomly select the next word from the learned dictionary.</li>
-                <li>Repeat the process until no next word is available or the desired number of words is generated.</li>
-                <li>Display the generated text.</li>
-                <li>Stop.</li>
-              </ol>
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar">
+              <button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button>
+              <span class="cell-action-icon">↑</span>
+              <span class="cell-action-icon">↓</span>
+              <span class="cell-action-icon">⋮</span>
             </div>
-
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar">
-                <button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button>
-                <span class="cell-action-icon">↑</span>
-                <span class="cell-action-icon">↓</span>
-                <span class="cell-action-icon">⋮</span>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[1]</span>
               </div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[1]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-kw">import</span> random
+              <div class="code-editor-text"><span class="tok-kw">import</span> random
 
 <span class="tok-comm"># Training sentences</span>
 sentences = [
@@ -1296,60 +1090,59 @@ generated_text = word
 <span class="tok-builtin">print</span>(<span class="tok-str">"
 Generated Text:"</span>)
 <span class="tok-builtin">print</span>(generated_text)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-status">✓ Executed in 0.14s</div>
-                <div class="output-body">Learned Model
+            </div>
+            <div class="cell-output-box">
+              <div class="output-status">✓ Executed in 0.14s</div>
+              <div class="output-body">Learned Model
 {'I': ['love', 'love', 'enjoy'], 'love': ['data', 'machine'], 'data': ['science', 'science'], 'machine': ['learning', 'learning'], 'learning': ['python', 'is']}
 
 Enter starting word: love
 
 Generated Text:
 love data science is amazing</div>
-              </div>
-            </div>
-
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h3>Conclusion</h3>
-              <p>The practical demonstrated the implementation of a simple next-word prediction model using Python. It helped in understanding how Generative AI learns patterns from text and generates meaningful sentences by predicting one word at a time. This concept forms the foundation of modern text generation models.</p>
             </div>
           </div>
 
-          <!-- ==========================================
-               PRACTICAL NO. 2
-               ========================================== -->
-          <div id="p2" class="practical-block">
-            <div class="colab-cell markdown-cell">
-              <h1>Practical No. 2: Text Generation and Text Summarization using Generative AI</h1>
-              <h3>Aim</h3>
-              <p>To understand the concepts of text generation and text summarization using Python.</p>
-              <h3>Theory</h3>
-              <p>Generative AI can create new text as well as summarize lengthy content into a shorter form. Text generation involves producing meaningful sentences based on given input, while text summarization extracts the most important information from a paragraph.</p>
-              <h2>Part A: Text Generation</h2>
-              <h3>Objective</h3>
-              <p>To generate text based on user input using predefined responses.</p>
-              <h3>Algorithm</h3>
-              <ol>
-                <li>Start the program.</li>
-                <li>Create a dictionary containing keywords and corresponding generated text.</li>
-                <li>Accept input from the user.</li>
-                <li>Check whether the keyword exists in the dictionary.</li>
-                <li>Display the generated text.</li>
-                <li>Stop the program.</li>
-              </ol>
-            </div>
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h3>Conclusion</h3>
+            <p>The practical demonstrated the implementation of a simple next-word prediction model using Python. It helped in understanding how Generative AI learns patterns from text and generates meaningful sentences by predicting one word at a time. This concept forms the foundation of modern text generation models.</p>
+          </div>
+        </div>
 
-            <!-- Part A Code -->
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar">
-                <button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button>
+        <!-- ==========================================
+             PRACTICAL NO. 2
+             ========================================== -->
+        <div id="p2" class="practical-block">
+          <div class="colab-cell markdown-cell">
+            <h1>Practical No. 2: Text Generation and Text Summarization using Generative AI</h1>
+            <h3>Aim</h3>
+            <p>To understand the concepts of text generation and text summarization using Python.</p>
+            <h3>Theory</h3>
+            <p>Generative AI can create new text as well as summarize lengthy content into a shorter form. Text generation involves producing meaningful sentences based on given input, while text summarization extracts the most important information from a paragraph.</p>
+            <h2>Part A: Text Generation</h2>
+            <h3>Objective</h3>
+            <p>To generate text based on user input using predefined responses.</p>
+            <h3>Algorithm</h3>
+            <ol>
+              <li>Start the program.</li>
+              <li>Create a dictionary containing keywords and corresponding generated text.</li>
+              <li>Accept input from the user.</li>
+              <li>Check whether the keyword exists in the dictionary.</li>
+              <li>Display the generated text.</li>
+              <li>Stop the program.</li>
+            </ol>
+          </div>
+
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar">
+              <button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button>
+            </div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[2]</span>
               </div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[2]</span>
-                </div>
-                <div class="code-editor-text">responses = {
+              <div class="code-editor-text">responses = {
     <span class="tok-str">"ai"</span>: <span class="tok-str">"Artificial Intelligence is transforming the world."</span>,
     <span class="tok-str">"python"</span>: <span class="tok-str">"Python is a popular programming language for AI."</span>,
     <span class="tok-str">"data"</span>: <span class="tok-str">"Data is the foundation of machine learning."</span>
@@ -1363,61 +1156,58 @@ Generated Text:"</span>)
     <span class="tok-builtin">print</span>(responses[word])
 <span class="tok-kw">else</span>:
     <span class="tok-builtin">print</span>(<span class="tok-str">"No text available for the given keyword."</span>)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">Enter a keyword (ai/python/data): python
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">Enter a keyword (ai/python/data): python
 
 Generated Text:
 Python is a popular programming language for AI.</div>
+            </div>
+          </div>
+
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h2>Part B: Text Summarization using Hugging Face Transformer</h2>
+            <h3>Objective</h3>
+            <p>To summarize a paragraph by extracting important sentences.</p>
+            <h3>Algorithm</h3>
+            <ol>
+              <li>Start the program.</li>
+              <li>Import the pipeline function from the transformers library.</li>
+              <li>Load the pre-trained summarization pipeline.</li>
+              <li>Store the input paragraph in a variable.</li>
+              <li>Generate the summary by specifying the maximum and minimum summary length.</li>
+              <li>Display the generated summary.</li>
+              <li>Stop the program.</li>
+            </ol>
+          </div>
+
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[3]</span>
               </div>
-            </div>
-
-            <!-- Part B Markdown -->
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h2>Part B: Text Summarization using Hugging Face Transformer</h2>
-              <h3>Objective</h3>
-              <p>To summarize a paragraph by extracting important sentences.</p>
-              <h3>Algorithm</h3>
-              <ol>
-                <li>Start the program.</li>
-                <li>Import the pipeline function from the transformers library.</li>
-                <li>Load the pre-trained summarization pipeline.</li>
-                <li>Store the input paragraph in a variable.</li>
-                <li>Generate the summary by specifying the maximum and minimum summary length.</li>
-                <li>Display the generated summary.</li>
-                <li>Stop the program.</li>
-              </ol>
-            </div>
-
-            <!-- Part B Install -->
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[3]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-comm"># Step 1: Uninstall existing packages</span>
+              <div class="code-editor-text"><span class="tok-comm"># Step 1: Uninstall existing packages</span>
 <span class="tok-magic">!pip uninstall -y transformers torch torchvision torchaudio</span>
 
 <span class="tok-comm"># Step 2: Install compatible versions</span>
 <span class="tok-magic">!pip install -q torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0</span>
 <span class="tok-magic">!pip install -q transformers==4.52.4 sentencepiece accelerate</span></div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">Successfully installed torch-2.6.0 torchvision-0.21.0 torchaudio-2.6.0 transformers-4.52.4 sentencepiece accelerate</div>
-              </div>
             </div>
+            <div class="cell-output-box">
+              <div class="output-body">Successfully installed torch-2.6.0 torchvision-0.21.0 torchaudio-2.6.0 transformers-4.52.4 sentencepiece accelerate</div>
+            </div>
+          </div>
 
-            <!-- Part B Run -->
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[4]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-kw">from</span> transformers <span class="tok-kw">import</span> pipeline
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[4]</span>
+              </div>
+              <div class="code-editor-text"><span class="tok-kw">from</span> transformers <span class="tok-kw">import</span> pipeline
 
 <span class="tok-comm"># Load summarization pipeline</span>
 summarizer = pipeline(
@@ -1446,9 +1236,9 @@ summary = summarizer(text, max_length=<span class="tok-num">40</span>, min_lengt
 Generated Summary:
 "</span>)
 <span class="tok-builtin">print</span>(summary[<span class="tok-num">0</span>][<span class="tok-str">"summary_text"</span>])</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">Original Text:
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">Original Text:
 
 Artificial Intelligence is transforming every industry by automating tasks,
 improving decision-making, and generating human-like content.
@@ -1459,49 +1249,47 @@ music, videos, and even software code.
 Generated Summary:
 
 Generative AI is a branch of AI capable of creating text, images, music, videos, and even software code.</div>
-              </div>
-            </div>
-
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h3>Conclusion</h3>
-              <p>The practical demonstrated how a pre-trained BART Transformer model can summarize lengthy text into a concise and meaningful form. It provided hands-on experience in using Generative AI for Natural Language Processing (NLP) tasks.</p>
             </div>
           </div>
 
-          <!-- ==========================================
-               PRACTICAL NO. 3
-               ========================================== -->
-          <div id="p3" class="practical-block">
-            <div class="colab-cell markdown-cell">
-              <h1>Practical No. 3: AI Tutor Chatbot using Google Gemini API</h1>
-              <h3>Aim</h3>
-              <p>To develop an AI Tutor Chatbot using the Google Gemini API that interacts with users and answers programming-related questions in a conversational manner.</p>
-              <h3>Theory</h3>
-              <p>A chatbot is a conversational AI application that communicates with users using Natural Language Processing (NLP). In this practical, the Google Gemini API is used to create an AI Tutor that explains coding concepts to beginners.</p>
-              <h3>Algorithm</h3>
-              <ol>
-                <li>Start the program.</li>
-                <li>Import the required <code>google.genai</code> library.</li>
-                <li>Initialize the Gemini client using the API key.</li>
-                <li>Create a chat session using the Gemini model.</li>
-                <li>Set the system instruction to define the chatbot's role as an AI tutor.</li>
-                <li>Display a welcome message.</li>
-                <li>Accept user input in a loop.</li>
-                <li>Send the user's message to the Gemini model.</li>
-                <li>Display the AI-generated response.</li>
-                <li>Repeat until the user enters <code>exit</code>.</li>
-                <li>Stop the program.</li>
-              </ol>
-            </div>
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h3>Conclusion</h3>
+            <p>The practical demonstrated how a pre-trained BART Transformer model can summarize lengthy text into a concise and meaningful form.</p>
+          </div>
+        </div>
 
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[5]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-kw">import</span> os
+        <!-- ==========================================
+             PRACTICAL NO. 3
+             ========================================== -->
+        <div id="p3" class="practical-block">
+          <div class="colab-cell markdown-cell">
+            <h1>Practical No. 3: AI Tutor Chatbot using Google Gemini API</h1>
+            <h3>Aim</h3>
+            <p>To develop an AI Tutor Chatbot using the Google Gemini API that interacts with users and answers programming-related questions in a conversational manner.</p>
+            <h3>Algorithm</h3>
+            <ol>
+              <li>Start the program.</li>
+              <li>Import the required <code>google.genai</code> library.</li>
+              <li>Initialize the Gemini client using the API key.</li>
+              <li>Create a chat session using the Gemini model.</li>
+              <li>Set the system instruction to define the chatbot's role as an AI tutor.</li>
+              <li>Display a welcome message.</li>
+              <li>Accept user input in a loop.</li>
+              <li>Send the user's message to the Gemini model.</li>
+              <li>Display the AI-generated response.</li>
+              <li>Repeat until the user enters <code>exit</code>.</li>
+              <li>Stop the program.</li>
+            </ol>
+          </div>
+
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[5]</span>
+              </div>
+              <div class="code-editor-text"><span class="tok-kw">import</span> os
 <span class="tok-kw">from</span> google <span class="tok-kw">import</span> genai
 
 <span class="tok-comm"># Initialize Gemini client</span>
@@ -1525,9 +1313,9 @@ chat = client.chats.create(
     response = chat.send_message(user_input)
     <span class="tok-builtin">print</span>(<span class="tok-str">"AI Tutor:"</span>, response.text)
     <span class="tok-builtin">print</span>()</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">AI Tutor: Hello! I'm your GenAI tutor. Ask me anything!
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">AI Tutor: Hello! I'm your GenAI tutor. Ask me anything!
 You: what is gen ai
 AI Tutor: Hello there, future tech superstar! 🌟 That is an absolute **excellent** question to ask.
 
@@ -1537,47 +1325,39 @@ Let's dive into the exciting world of **Gen AI** (which is short for **Generativ
 In the simplest terms, **Generative AI** is a type of artificial intelligence that can **create brand-new things**!
 
 1. **Text 📝**: It can write essays, poems, emails, or chat with you!
-2. **Images 🎨**: It can draw anything you describe!
+2. **Images 🎨**: You can type *"a cute golden retriever puppy wearing a space suit on Mars"* and it will draw it!
 3. **Code 💻**: It can write computer code in Python, C++, etc.
 
 You: exit
 AI Tutor: Thank you! Happy Learning 😊</div>
-              </div>
-            </div>
-
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h3>Conclusion</h3>
-              <p>The practical demonstrated the development of an AI Tutor Chatbot using the Google Gemini API. It helped in understanding the implementation of conversational AI using Large Language Models.</p>
             </div>
           </div>
 
-          <!-- ==========================================
-               PRACTICAL NO. 4
-               ========================================== -->
-          <div id="p4" class="practical-block">
-            <div class="colab-cell markdown-cell">
-              <h1>Practical No. 4: Introduction to Generative AI using Gemini API</h1>
-              <h3>Aim</h3>
-              <p>To understand the basic concepts of Generative AI and perform different text-generation tasks using the Gemini API and Python.</p>
-              <h3>Software / Requirements</h3>
-              <ul>
-                <li>Python</li>
-                <li>Google Colab / Jupyter Notebook</li>
-                <li>Gemini API</li>
-                <li>google-generativeai Python library</li>
-              </ul>
-              <h2>Sub-Part 1: Basic Text Generation</h2>
-            </div>
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h3>Conclusion</h3>
+            <p>The practical demonstrated the development of an AI Tutor Chatbot using the Google Gemini API.</p>
+          </div>
+        </div>
 
-            <!-- Sub 1 -->
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[6]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-magic">!pip -q install google-generativeai</span>
+        <!-- ==========================================
+             PRACTICAL NO. 4
+             ========================================== -->
+        <div id="p4" class="practical-block">
+          <div class="colab-cell markdown-cell">
+            <h1>Practical No. 4: Introduction to Generative AI using Gemini API</h1>
+            <h3>Aim</h3>
+            <p>To understand the basic concepts of Generative AI and perform different text-generation tasks using the Gemini API and Python.</p>
+            <h2>Sub-Part 1: Basic Text Generation</h2>
+          </div>
+
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[6]</span>
+              </div>
+              <div class="code-editor-text"><span class="tok-magic">!pip -q install google-generativeai</span>
 <span class="tok-kw">import</span> google.generativeai <span class="tok-kw">as</span> genai
 
 API_KEY = <span class="tok-str">"AQ."</span> + <span class="tok-str">"Ab8RN6JkmZk7st62RATnSJpe-0NqOvT2JBmN-YSJ0eWorqxnVw"</span>
@@ -1586,157 +1366,152 @@ genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel(<span class="tok-str">"gemini-3.5-flash"</span>)
 response = model.generate_content(<span class="tok-str">"Explain Artificial Intelligence in simple words."</span>)
 <span class="tok-builtin">print</span>(response.text)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">At its simplest, **Artificial Intelligence (AI)** is when computers and machines are programmed to "think," learn, and make decisions, much like a human brain does.</div>
-              </div>
             </div>
+            <div class="cell-output-box">
+              <div class="output-body">At its simplest, **Artificial Intelligence (AI)** is when computers and machines are programmed to "think," learn, and make decisions, much like a human brain does.</div>
+            </div>
+          </div>
 
-            <!-- Sub 2: Story Generation -->
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h2>Sub-Part 2: AI-Based Story Generation</h2>
-            </div>
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[7]</span>
-                </div>
-                <div class="code-editor-text">topic = <span class="tok-builtin">input</span>(<span class="tok-str">"Enter topic: "</span>)
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h2>Sub-Part 2: AI-Based Story Generation</h2>
+          </div>
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[7]</span>
+              </div>
+              <div class="code-editor-text">topic = <span class="tok-builtin">input</span>(<span class="tok-str">"Enter topic: "</span>)
 prompt = f<span class="tok-str">"Write a short story on {topic}"</span>
 response = model.generate_content(prompt)
 <span class="tok-builtin">print</span>(response.text)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">Enter topic: machine learning
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">Enter topic: machine learning
 The servers in Basement Lab 4 hummed like a colony of digital cicadas. For six months, Dr. Elena Vance had lived on black coffee and cold bagels... By Epoch 1,000, Aura had discovered nouns.</div>
-              </div>
             </div>
+          </div>
 
-            <!-- Sub 3: Question Answering -->
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h2>Sub-Part 3: Question Answering using Generative AI</h2>
-            </div>
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[8]</span>
-                </div>
-                <div class="code-editor-text">question = <span class="tok-builtin">input</span>(<span class="tok-str">"Ask anything: "</span>)
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h2>Sub-Part 3: Question Answering using Generative AI</h2>
+          </div>
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[8]</span>
+              </div>
+              <div class="code-editor-text">question = <span class="tok-builtin">input</span>(<span class="tok-str">"Ask anything: "</span>)
 response = model.generate_content(question)
 <span class="tok-builtin">print</span>(response.text)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">Ask anything: how does PYTHON WORKS?
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">Ask anything: how does PYTHON WORKS?
 To understand how Python works:
 [ Source Code (.py) ] -> [ Bytecode (.pyc) ] -> [ Python Virtual Machine (PVM) ] -> [ CPU Runs It ]</div>
-              </div>
             </div>
+          </div>
 
-            <!-- Sub 4: Translation -->
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h2>Sub-Part 4: Text Translation using Generative AI</h2>
-            </div>
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[9]</span>
-                </div>
-                <div class="code-editor-text">text = <span class="tok-str">"Artificial Intelligence is the future."</span>
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h2>Sub-Part 4: Text Translation using Generative AI</h2>
+          </div>
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[9]</span>
+              </div>
+              <div class="code-editor-text">text = <span class="tok-str">"Artificial Intelligence is the future."</span>
 prompt = f<span class="tok-str">"Translate into Hindi:
 {text}"</span>
 response = model.generate_content(prompt)
 <span class="tok-builtin">print</span>(response.text)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">**कृत्रिम बुद्धिमत्ता ही भविष्य है।**
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">**कृत्रिम बुद्धिमत्ता ही भविष्य है।**
 (Pronounced: *Kritrim buddhimatta hi bhavishya hai*)</div>
-              </div>
             </div>
+          </div>
 
-            <!-- Sub 5: Leave Application -->
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h2>Sub-Part 5: Professional Content Generation (Leave Application)</h2>
-            </div>
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[10]</span>
-                </div>
-                <div class="code-editor-text">prompt = <span class="tok-str">"""
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h2>Sub-Part 5: Professional Leave Application</h2>
+          </div>
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[10]</span>
+              </div>
+              <div class="code-editor-text">prompt = <span class="tok-str">"""
 Write a professional leave application for 2 days.
 """</span>
 response = model.generate_content(prompt)
 <span class="tok-builtin">print</span>(response.text)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">Subject: Leave Application: [Your Name] – [Start Date] to [End Date]
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">Subject: Leave Application: [Your Name] – [Start Date] to [End Date]
 Dear [Manager's Name],
 I am writing to formally request two days of leave...</div>
-              </div>
             </div>
+          </div>
 
-            <!-- Sub 6: MCQs -->
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h2>Sub-Part 6: Multiple-Choice Question Generation</h2>
-            </div>
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[11]</span>
-                </div>
-                <div class="code-editor-text">topic = <span class="tok-str">"Machine Learning"</span>
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h2>Sub-Part 6: Multiple-Choice Question Generation</h2>
+          </div>
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[11]</span>
+              </div>
+              <div class="code-editor-text">topic = <span class="tok-str">"Machine Learning"</span>
 prompt = f<span class="tok-str">"""
 Generate 10 multiple-choice questions on {topic} with answers.
 """</span>
 response = model.generate_content(prompt)
 <span class="tok-builtin">print</span>(response.text)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">### Question 1: Supervised vs. Unsupervised Learning
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">### Question 1: Supervised vs. Unsupervised Learning
 Which of the following algorithms is an example of **unsupervised learning**?
 * A) Linear Regression
 * B) K-Means Clustering
 * C) Decision Tree
 * D) Support Vector Machine (SVM)
 **Answer: B) K-Means Clustering**</div>
-              </div>
-            </div>
-
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h3>Conclusion</h3>
-              <p>The practical demonstrated different applications of Generative AI using Python and the Gemini API including text generation, story generation, question answering, translation, leave application, and MCQ generation.</p>
             </div>
           </div>
 
-          <!-- ==========================================
-               PRACTICAL NO. 5
-               ========================================== -->
-          <div id="p5" class="practical-block">
-            <div class="colab-cell markdown-cell">
-              <h1>Practical No. 5: Text Generation and Prompt-Based Response Generation using Generative AI</h1>
-              <h3>Aim</h3>
-              <p>To understand and implement different text-generation applications using pre-trained Generative AI models and Python.</p>
-              <h2>Sub-Part 1: Local Text Generation using GPT-2</h2>
-            </div>
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h3>Conclusion</h3>
+            <p>The practical demonstrated different applications of Generative AI using Python and the Gemini API.</p>
+          </div>
+        </div>
 
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[12]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-magic">!pip install transformers torch</span>
+        <!-- ==========================================
+             PRACTICAL NO. 5
+             ========================================== -->
+        <div id="p5" class="practical-block">
+          <div class="colab-cell markdown-cell">
+            <h1>Practical No. 5: Text Generation and Prompt-Based Response Generation using Generative AI</h1>
+            <h3>Aim</h3>
+            <p>To understand and implement different text-generation applications using pre-trained Generative AI models and Python.</p>
+            <h2>Sub-Part 1: Local Text Generation using GPT-2</h2>
+          </div>
+
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[12]</span>
+              </div>
+              <div class="code-editor-text"><span class="tok-magic">!pip install transformers torch</span>
 <span class="tok-kw">from</span> transformers <span class="tok-kw">import</span> pipeline
 
 <span class="tok-kw">def</span> <span class="tok-fn">generate_local_text</span>(prompt_text: <span class="tok-builtin">str</span>):
@@ -1756,24 +1531,24 @@ Which of the following algorithms is an example of **unsupervised learning**?
     <span class="tok-builtin">print</span>(<span class="tok-str">"
 --- Result ---"</span>)
     <span class="tok-builtin">print</span>(result)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">--- Result ---
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">--- Result ---
 Artificial Intelligence will change the future of programming by empowering the human mind and making it more powerful...</div>
-              </div>
             </div>
+          </div>
 
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h2>Sub-Part 2: Customer Service Response Generation using Gemini</h2>
-            </div>
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[13]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-kw">import</span> os
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h2>Sub-Part 2: Customer Service Response Generation using Gemini</h2>
+          </div>
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[13]</span>
+              </div>
+              <div class="code-editor-text"><span class="tok-kw">import</span> os
 <span class="tok-kw">from</span> google <span class="tok-kw">import</span> genai
 
 client = genai.Client(api_key=<span class="tok-str">"AQ."</span> + <span class="tok-str">"Ab8RN6JkmZk7st62RATnSJpe-0NqOvT2JBmN-YSJ0eWorqxnVw"</span>)
@@ -1793,41 +1568,40 @@ response = client.models.generate_content(
 )
 <span class="tok-builtin">print</span>(<span class="tok-str">"Drafted Email Reply:"</span>)
 <span class="tok-builtin">print</span>(response.text)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">Drafted Email Reply:
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">Drafted Email Reply:
 Subject: Refund Request - Broken Zipper
 Hi there, Thank you for reaching out to us, and I am so sorry to hear that the zipper on your new shirt is broken...</div>
-              </div>
-            </div>
-
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h3>Conclusion</h3>
-              <p>The practical demonstrated two applications of Generative AI: local text generation with GPT-2 and prompt-based customer service response using Gemini API.</p>
             </div>
           </div>
 
-          <!-- ==========================================
-               PRACTICAL NO. 6
-               ========================================== -->
-          <div id="p6" class="practical-block">
-            <div class="colab-cell markdown-cell">
-              <h1>Practical No. 6: Data Analysis and Visualization for AI-Based Insights</h1>
-              <h3>Aim</h3>
-              <p>To analyze a dataset using Python and perform data visualization to identify trends, patterns, and relationships that support Predictive AI and Machine Learning workflows.</p>
-              <h3>Theory & Workflow</h3>
-              <p><code>Data → Data Analysis & Visualization → Machine Learning/Predictive AI → Predictions & Insights</code></p>
-              <p>In this practical, the Superstore dataset is analyzed using Pandas, Matplotlib, and Seaborn for Yearly Sales Trend, Sales by Category, and Sales vs Profit.</p>
-            </div>
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h3>Conclusion</h3>
+            <p>The practical demonstrated two applications of Generative AI: local text generation with GPT-2 and prompt-based response using Gemini API.</p>
+          </div>
+        </div>
 
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[14]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-kw">import</span> pandas <span class="tok-kw">as</span> pd
+        <!-- ==========================================
+             PRACTICAL NO. 6
+             ========================================== -->
+        <div id="p6" class="practical-block">
+          <div class="colab-cell markdown-cell">
+            <h1>Practical No. 6: Data Analysis and Visualization for AI-Based Insights</h1>
+            <h3>Aim</h3>
+            <p>To analyze a dataset using Python and perform data visualization to identify trends, patterns, and relationships that support Predictive AI and Machine Learning workflows.</p>
+            <h3>Theory & Workflow</h3>
+            <p><code>Data → Data Analysis & Visualization → Machine Learning/Predictive AI → Predictions & Insights</code></p>
+          </div>
+
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[14]</span>
+              </div>
+              <div class="code-editor-text"><span class="tok-kw">import</span> pandas <span class="tok-kw">as</span> pd
 <span class="tok-kw">import</span> matplotlib.pyplot <span class="tok-kw">as</span> plt
 <span class="tok-kw">import</span> seaborn <span class="tok-kw">as</span> sns
 
@@ -1858,99 +1632,96 @@ plt.title(<span class="tok-str">'Sales vs Profit'</span>)
 plt.xlabel(<span class="tok-str">'Sales'</span>)
 plt.ylabel(<span class="tok-str">'Profit'</span>)
 plt.show()</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-status">✓ Plots Rendered</div>
-                <div class="plot-container">
-                  <!-- Plot 1 -->
-                  <div class="plot-box" style="margin-bottom: 12px;">
-                    <svg viewBox="0 0 500 280" width="460" height="260" style="background:#fff; font-family:sans-serif;">
-                      <text x="250" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Yearly Sales Trend</text>
-                      <text x="45" y="40" font-size="10" fill="#444">1e7</text>
-                      <line x1="70" y1="45" x2="70" y2="220" stroke="#000" stroke-width="1.2"/>
-                      <line x1="70" y1="220" x2="460" y2="220" stroke="#000" stroke-width="1.2"/>
-                      <line x1="70" y1="45" x2="460" y2="45" stroke="#000" stroke-width="1.2"/>
-                      <line x1="460" y1="45" x2="460" y2="220" stroke="#000" stroke-width="1.2"/>
-                      <text x="64" y="218" text-anchor="end" font-size="10">1.20</text>
-                      <text x="64" y="165" text-anchor="end" font-size="10">1.26</text>
-                      <text x="64" y="55" text-anchor="end" font-size="10">1.32</text>
-                      <text x="140" y="238" font-size="10">1975</text>
-                      <text x="210" y="238" font-size="10">2000</text>
-                      <text x="280" y="238" font-size="10" font-weight="bold">2025</text>
-                      <text x="350" y="238" font-size="10">2050</text>
-                      <circle cx="295" cy="125" r="4.5" fill="#1f77b4"/>
-                      <text x="265" y="260" text-anchor="middle" font-size="11">Year</text>
-                      <text x="20" y="130" text-anchor="middle" font-size="11" transform="rotate(-90,20,130)">Total Sales</text>
-                    </svg>
-                  </div>
-                  <br>
-                  <!-- Plot 2 -->
-                  <div class="plot-box" style="margin-bottom: 12px;">
-                    <svg viewBox="0 0 500 280" width="460" height="260" style="background:#fff; font-family:sans-serif;">
-                      <text x="250" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Total Sales by Category</text>
-                      <text x="45" y="40" font-size="10" fill="#444">1e6</text>
-                      <line x1="70" y1="45" x2="70" y2="220" stroke="#000" stroke-width="1.2"/>
-                      <line x1="70" y1="220" x2="460" y2="220" stroke="#000" stroke-width="1.2"/>
-                      <line x1="70" y1="45" x2="460" y2="45" stroke="#000" stroke-width="1.2"/>
-                      <line x1="460" y1="45" x2="460" y2="220" stroke="#000" stroke-width="1.2"/>
-                      <rect x="100" y="70" width="85" height="150" fill="#3274a1"/>
-                      <rect x="215" y="50" width="85" height="170" fill="#3274a1"/>
-                      <rect x="330" y="60" width="85" height="160" fill="#3274a1"/>
-                      <text x="140" y="238" font-size="10" transform="rotate(40,140,238)">Office Supplies</text>
-                      <text x="255" y="238" font-size="10" transform="rotate(40,255,238)">Technology</text>
-                      <text x="370" y="238" font-size="10" transform="rotate(40,370,238)">Furniture</text>
-                      <text x="20" y="130" text-anchor="middle" font-size="11" transform="rotate(-90,20,130)">Sales</text>
-                    </svg>
-                  </div>
-                  <br>
-                  <!-- Plot 3 -->
-                  <div class="plot-box">
-                    <svg viewBox="0 0 500 280" width="460" height="260" style="background:#fff; font-family:sans-serif;">
-                      <text x="250" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Sales vs Profit</text>
-                      <line x1="70" y1="40" x2="70" y2="225" stroke="#000" stroke-width="1.2"/>
-                      <line x1="70" y1="225" x2="460" y2="225" stroke="#000" stroke-width="1.2"/>
-                      <line x1="70" y1="40" x2="460" y2="40" stroke="#000" stroke-width="1.2"/>
-                      <line x1="460" y1="40" x2="460" y2="225" stroke="#000" stroke-width="1.2"/>
-                      <g fill="#4e90c6" opacity="0.65">
-                        <circle cx="85" cy="140" r="3"/><circle cx="95" cy="138" r="3"/><circle cx="105" cy="145" r="3"/><circle cx="115" cy="130" r="3"/>
-                        <circle cx="130" cy="155" r="3"/><circle cx="145" cy="120" r="3.5"/><circle cx="160" cy="115" r="3"/><circle cx="180" cy="110" r="3.5"/>
-                        <circle cx="210" cy="95" r="3.5"/><circle cx="240" cy="85" r="4"/><circle cx="290" cy="75" r="4"/><circle cx="340" cy="55" r="4.5"/>
-                        <circle cx="430" cy="155" r="4"/><circle cx="150" cy="205" r="3.5"/>
-                      </g>
-                      <text x="265" y="255" text-anchor="middle" font-size="11">Sales</text>
-                      <text x="20" y="130" text-anchor="middle" font-size="11" transform="rotate(-90,20,130)">Profit</text>
-                    </svg>
-                  </div>
+            </div>
+            <div class="cell-output-box">
+              <div class="output-status">✓ Plots Rendered</div>
+              <div class="plot-container">
+                <div class="plot-box" style="margin-bottom: 12px;">
+                  <svg viewBox="0 0 500 280" width="460" height="260" style="background:#fff; font-family:sans-serif;">
+                    <text x="250" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Yearly Sales Trend</text>
+                    <text x="45" y="40" font-size="10" fill="#444">1e7</text>
+                    <line x1="70" y1="45" x2="70" y2="220" stroke="#000" stroke-width="1.2"/>
+                    <line x1="70" y1="220" x2="460" y2="220" stroke="#000" stroke-width="1.2"/>
+                    <line x1="70" y1="45" x2="460" y2="45" stroke="#000" stroke-width="1.2"/>
+                    <line x1="460" y1="45" x2="460" y2="220" stroke="#000" stroke-width="1.2"/>
+                    <text x="64" y="218" text-anchor="end" font-size="10">1.20</text>
+                    <text x="64" y="165" text-anchor="end" font-size="10">1.26</text>
+                    <text x="64" y="55" text-anchor="end" font-size="10">1.32</text>
+                    <text x="140" y="238" font-size="10">1975</text>
+                    <text x="210" y="238" font-size="10">2000</text>
+                    <text x="280" y="238" font-size="10" font-weight="bold">2025</text>
+                    <text x="350" y="238" font-size="10">2050</text>
+                    <circle cx="295" cy="125" r="4.5" fill="#1f77b4"/>
+                    <text x="265" y="260" text-anchor="middle" font-size="11">Year</text>
+                    <text x="20" y="130" text-anchor="middle" font-size="11" transform="rotate(-90,20,130)">Total Sales</text>
+                  </svg>
+                </div>
+                <br>
+                <div class="plot-box" style="margin-bottom: 12px;">
+                  <svg viewBox="0 0 500 280" width="460" height="260" style="background:#fff; font-family:sans-serif;">
+                    <text x="250" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Total Sales by Category</text>
+                    <text x="45" y="40" font-size="10" fill="#444">1e6</text>
+                    <line x1="70" y1="45" x2="70" y2="220" stroke="#000" stroke-width="1.2"/>
+                    <line x1="70" y1="220" x2="460" y2="220" stroke="#000" stroke-width="1.2"/>
+                    <line x1="70" y1="45" x2="460" y2="45" stroke="#000" stroke-width="1.2"/>
+                    <line x1="460" y1="45" x2="460" y2="220" stroke="#000" stroke-width="1.2"/>
+                    <rect x="100" y="70" width="85" height="150" fill="#3274a1"/>
+                    <rect x="215" y="50" width="85" height="170" fill="#3274a1"/>
+                    <rect x="330" y="60" width="85" height="160" fill="#3274a1"/>
+                    <text x="140" y="238" font-size="10" transform="rotate(40,140,238)">Office Supplies</text>
+                    <text x="255" y="238" font-size="10" transform="rotate(40,255,238)">Technology</text>
+                    <text x="370" y="238" font-size="10" transform="rotate(40,370,238)">Furniture</text>
+                    <text x="20" y="130" text-anchor="middle" font-size="11" transform="rotate(-90,20,130)">Sales</text>
+                  </svg>
+                </div>
+                <br>
+                <div class="plot-box">
+                  <svg viewBox="0 0 500 280" width="460" height="260" style="background:#fff; font-family:sans-serif;">
+                    <text x="250" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Sales vs Profit</text>
+                    <line x1="70" y1="40" x2="70" y2="225" stroke="#000" stroke-width="1.2"/>
+                    <line x1="70" y1="225" x2="460" y2="225" stroke="#000" stroke-width="1.2"/>
+                    <line x1="70" y1="40" x2="460" y2="40" stroke="#000" stroke-width="1.2"/>
+                    <line x1="460" y1="40" x2="460" y2="225" stroke="#000" stroke-width="1.2"/>
+                    <g fill="#4e90c6" opacity="0.65">
+                      <circle cx="85" cy="140" r="3"/><circle cx="95" cy="138" r="3"/><circle cx="105" cy="145" r="3"/><circle cx="115" cy="130" r="3"/>
+                      <circle cx="130" cy="155" r="3"/><circle cx="145" cy="120" r="3.5"/><circle cx="160" cy="115" r="3"/><circle cx="180" cy="110" r="3.5"/>
+                      <circle cx="210" cy="95" r="3.5"/><circle cx="240" cy="85" r="4"/><circle cx="290" cy="75" r="4"/><circle cx="340" cy="55" r="4.5"/>
+                      <circle cx="430" cy="155" r="4"/><circle cx="150" cy="205" r="3.5"/>
+                    </g>
+                    <text x="265" y="255" text-anchor="middle" font-size="11">Sales</text>
+                    <text x="20" y="130" text-anchor="middle" font-size="11" transform="rotate(-90,20,130)">Profit</text>
+                  </svg>
                 </div>
               </div>
-            </div>
-
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h3>Conclusion</h3>
-              <p>The practical successfully demonstrates Data Analysis and Visualization using Python with Pandas, Matplotlib, and Seaborn.</p>
             </div>
           </div>
 
-          <!-- ==========================================
-               PRACTICAL NO. 7
-               ========================================== -->
-          <div id="p7" class="practical-block">
-            <div class="colab-cell markdown-cell">
-              <h1>Practical No. 7: Dimensionality Reduction using PCA</h1>
-              <h3>Aim</h3>
-              <p>To implement Principal Component Analysis (PCA) using Python and reduce the dimensions of the Wine dataset for visualization.</p>
-              <h3>Theory</h3>
-              <p>PCA (Principal Component Analysis) is a dimensionality reduction technique used in Machine Learning. In this practical, the Wine dataset containing 13 features is standardized and reduced to 2 principal components.</p>
-            </div>
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h3>Conclusion</h3>
+            <p>The practical successfully demonstrates Data Analysis and Visualization using Python with Pandas, Matplotlib, and Seaborn.</p>
+          </div>
+        </div>
 
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[15]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-kw">import</span> pandas <span class="tok-kw">as</span> pd
+        <!-- ==========================================
+             PRACTICAL NO. 7
+             ========================================== -->
+        <div id="p7" class="practical-block">
+          <div class="colab-cell markdown-cell">
+            <h1>Practical No. 7: Dimensionality Reduction using PCA</h1>
+            <h3>Aim</h3>
+            <p>To implement Principal Component Analysis (PCA) using Python and reduce the dimensions of the Wine dataset for visualization.</p>
+            <h3>Theory</h3>
+            <p>PCA (Principal Component Analysis) is a dimensionality reduction technique used in Machine Learning. In this practical, the Wine dataset containing 13 features is standardized and reduced to 2 principal components.</p>
+          </div>
+
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[15]</span>
+              </div>
+              <div class="code-editor-text"><span class="tok-kw">import</span> pandas <span class="tok-kw">as</span> pd
 <span class="tok-kw">import</span> matplotlib.pyplot <span class="tok-kw">as</span> plt
 <span class="tok-kw">from</span> sklearn.decomposition <span class="tok-kw">import</span> PCA
 <span class="tok-kw">from</span> sklearn.preprocessing <span class="tok-kw">import</span> StandardScaler
@@ -1973,7 +1744,6 @@ df_scaled = scaler.fit_transform(df)
 pca = PCA(n_components=<span class="tok-num">2</span>)
 pca_data = pca.fit_transform(df_scaled)
 
-<span class="tok-comm"># Display reduced dimensions</span>
 <span class="tok-builtin">print</span>(<span class="tok-str">"Original Features:"</span>, df.shape[<span class="tok-num">1</span>])
 <span class="tok-builtin">print</span>(<span class="tok-str">"Reduced Features:"</span>, pca_data.shape[<span class="tok-num">1</span>])
 
@@ -1989,75 +1759,71 @@ plt.xlabel(<span class="tok-str">"Principal Component 1"</span>)
 plt.ylabel(<span class="tok-str">"Principal Component 2"</span>)
 plt.title(<span class="tok-str">"PCA on Wine Dataset"</span>)
 plt.show()</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">Original Features: 13
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">Original Features: 13
 Reduced Features: 2</div>
-                <div class="plot-container">
-                  <div class="plot-box">
-                    <svg viewBox="0 0 500 290" width="460" height="270" style="background:#fff; font-family:sans-serif;">
-                      <text x="250" y="22" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">PCA on Wine Quality Dataset</text>
-                      <line x1="70" y1="35" x2="70" y2="240" stroke="#000" stroke-width="1.2"/>
-                      <line x1="70" y1="240" x2="460" y2="240" stroke="#000" stroke-width="1.2"/>
-                      <line x1="70" y1="35" x2="460" y2="35" stroke="#000" stroke-width="1.2"/>
-                      <line x1="460" y1="35" x2="460" y2="240" stroke="#000" stroke-width="1.2"/>
-                      <!-- Cluster 1: Yellow -->
-                      <g fill="#fde725" stroke="#000" stroke-width="1">
-                        <circle cx="150" cy="80" r="4"/><circle cx="160" cy="70" r="4"/><circle cx="170" cy="75" r="4"/>
-                        <circle cx="180" cy="90" r="4"/><circle cx="155" cy="95" r="4"/><circle cx="165" cy="110" r="4"/>
-                        <circle cx="140" cy="90" r="4"/><circle cx="130" cy="105" r="4"/><circle cx="195" cy="60" r="4"/>
-                      </g>
-                      <!-- Cluster 2: Teal -->
-                      <g fill="#21918c" stroke="#000" stroke-width="1">
-                        <circle cx="190" cy="150" r="4"/><circle cx="210" cy="165" r="4"/><circle cx="230" cy="175" r="4"/>
-                        <circle cx="250" cy="180" r="4"/><circle cx="270" cy="190" r="4"/><circle cx="290" cy="195" r="4"/>
-                        <circle cx="260" cy="210" r="4"/><circle cx="310" cy="180" r="4"/><circle cx="330" cy="165" r="4"/>
-                      </g>
-                      <!-- Cluster 3: Deep Purple -->
-                      <g fill="#440154" stroke="#000" stroke-width="1">
-                        <circle cx="350" cy="115" r="4"/><circle cx="365" cy="100" r="4"/><circle cx="380" cy="88" r="4"/>
-                        <circle cx="395" cy="82" r="4"/><circle cx="410" cy="95" r="4"/><circle cx="425" cy="105" r="4"/>
-                        <circle cx="400" cy="120" r="4"/><circle cx="385" cy="135" r="4"/><circle cx="440" cy="75" r="4"/>
-                      </g>
-                      <text x="265" y="268" text-anchor="middle" font-size="11">Principal Component 1</text>
-                      <text x="20" y="140" text-anchor="middle" font-size="11" transform="rotate(-90,20,140)">Principal Component 2</text>
-                    </svg>
-                  </div>
+              <div class="plot-container">
+                <div class="plot-box">
+                  <svg viewBox="0 0 500 290" width="460" height="270" style="background:#fff; font-family:sans-serif;">
+                    <text x="250" y="22" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">PCA on Wine Quality Dataset</text>
+                    <line x1="70" y1="35" x2="70" y2="240" stroke="#000" stroke-width="1.2"/>
+                    <line x1="70" y1="240" x2="460" y2="240" stroke="#000" stroke-width="1.2"/>
+                    <line x1="70" y1="35" x2="460" y2="35" stroke="#000" stroke-width="1.2"/>
+                    <line x1="460" y1="35" x2="460" y2="240" stroke="#000" stroke-width="1.2"/>
+                    <g fill="#fde725" stroke="#000" stroke-width="1">
+                      <circle cx="150" cy="80" r="4"/><circle cx="160" cy="70" r="4"/><circle cx="170" cy="75" r="4"/>
+                      <circle cx="180" cy="90" r="4"/><circle cx="155" cy="95" r="4"/><circle cx="165" cy="110" r="4"/>
+                      <circle cx="140" cy="90" r="4"/><circle cx="130" cy="105" r="4"/><circle cx="195" cy="60" r="4"/>
+                    </g>
+                    <g fill="#21918c" stroke="#000" stroke-width="1">
+                      <circle cx="190" cy="150" r="4"/><circle cx="210" cy="165" r="4"/><circle cx="230" cy="175" r="4"/>
+                      <circle cx="250" cy="180" r="4"/><circle cx="270" cy="190" r="4"/><circle cx="290" cy="195" r="4"/>
+                      <circle cx="260" cy="210" r="4"/><circle cx="310" cy="180" r="4"/><circle cx="330" cy="165" r="4"/>
+                    </g>
+                    <g fill="#440154" stroke="#000" stroke-width="1">
+                      <circle cx="350" cy="115" r="4"/><circle cx="365" cy="100" r="4"/><circle cx="380" cy="88" r="4"/>
+                      <circle cx="395" cy="82" r="4"/><circle cx="410" cy="95" r="4"/><circle cx="425" cy="105" r="4"/>
+                      <circle cx="400" cy="120" r="4"/><circle cx="385" cy="135" r="4"/><circle cx="440" cy="75" r="4"/>
+                    </g>
+                    <text x="265" y="268" text-anchor="middle" font-size="11">Principal Component 1</text>
+                    <text x="20" y="140" text-anchor="middle" font-size="11" transform="rotate(-90,20,140)">Principal Component 2</text>
+                  </svg>
                 </div>
               </div>
-            </div>
-
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h3>Conclusion</h3>
-              <p>The practical demonstrated the implementation of PCA on the Wine dataset. It showed how high-dimensional data (13 features) can be reduced to 2 principal components while retaining cluster separation.</p>
             </div>
           </div>
 
-          <!-- ==========================================
-               PRACTICAL NO. 8
-               ========================================== -->
-          <div id="p8" class="practical-block">
-            <div class="colab-cell markdown-cell">
-              <h1>Practical No. 8: Statistical Analysis and Hypothesis Testing for AI</h1>
-              <h3>Aim</h3>
-              <p>To apply statistical techniques in Python for analyzing data and understanding how ANOVA and hypothesis testing support data-driven and AI-based decision-making.</p>
-              <h2>Part A: One-Way ANOVA</h2>
-              <h3>Problem Statement</h3>
-              <p>Consider the exam scores of students from three different classes. Perform a One-Way ANOVA test.</p>
-              <p><code>Class A: [85, 90, 88, 82, 87]</code><br>
-                 <code>Class B: [76, 78, 80, 81, 75]</code><br>
-                 <code>Class C: [92, 88, 94, 89, 90]</code></p>
-            </div>
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h3>Conclusion</h3>
+            <p>The practical demonstrated the implementation of PCA on the Wine dataset.</p>
+          </div>
+        </div>
 
-            <!-- Part A -->
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[16]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-kw">import</span> numpy <span class="tok-kw">as</span> np
+        <!-- ==========================================
+             PRACTICAL NO. 8
+             ========================================== -->
+        <div id="p8" class="practical-block">
+          <div class="colab-cell markdown-cell">
+            <h1>Practical No. 8: Statistical Analysis and Hypothesis Testing for AI</h1>
+            <h3>Aim</h3>
+            <p>To apply statistical techniques in Python for analyzing data and understanding how ANOVA and hypothesis testing support data-driven and AI-based decision-making.</p>
+            <h2>Part A: One-Way ANOVA</h2>
+            <h3>Problem Statement</h3>
+            <p>Consider the exam scores of students from three different classes. Perform a One-Way ANOVA test.</p>
+            <p><code>Class A: [85, 90, 88, 82, 87]</code><br>
+               <code>Class B: [76, 78, 80, 81, 75]</code><br>
+               <code>Class C: [92, 88, 94, 89, 90]</code></p>
+          </div>
+
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[16]</span>
+              </div>
+              <div class="code-editor-text"><span class="tok-kw">import</span> numpy <span class="tok-kw">as</span> np
 <span class="tok-kw">from</span> scipy <span class="tok-kw">import</span> stats
 <span class="tok-kw">from</span> statsmodels.stats.multicomp <span class="tok-kw">import</span> pairwise_tukeyhsd
 
@@ -2074,28 +1840,27 @@ alpha = <span class="tok-num">0.05</span>
     <span class="tok-builtin">print</span>(<span class="tok-str">"Reject the Null Hypothesis: There is a significant difference in the mean exam scores."</span>)
 <span class="tok-kw">else</span>:
     <span class="tok-builtin">print</span>(<span class="tok-str">"Fail to Reject the Null Hypothesis: There is no significant difference in the mean exam scores."</span>)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">F-Statistic: 28.583333333333343
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">F-Statistic: 28.583333333333343
 P-Value: 2.727133500331835e-05
 Reject the Null Hypothesis: There is a significant difference in the mean exam scores.</div>
-              </div>
             </div>
+          </div>
 
-            <!-- Part B -->
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h2>Part B: One-Sample T-Test</h2>
-              <p>Hypothesized population mean: <code>70</code></p>
-              <p><code>Scores: [72, 88, 64, 74, 67, 79, 85, 75, 89, 77]</code></p>
-            </div>
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[17]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-kw">import</span> scipy.stats <span class="tok-kw">as</span> stats
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h2>Part B: One-Sample T-Test</h2>
+            <p>Hypothesized population mean: <code>70</code></p>
+            <p><code>Scores: [72, 88, 64, 74, 67, 79, 85, 75, 89, 77]</code></p>
+          </div>
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[17]</span>
+              </div>
+              <div class="code-editor-text"><span class="tok-kw">import</span> scipy.stats <span class="tok-kw">as</span> stats
 <span class="tok-kw">import</span> numpy <span class="tok-kw">as</span> np
 
 student_scores = [<span class="tok-num">72</span>, <span class="tok-num">88</span>, <span class="tok-num">64</span>, <span class="tok-num">74</span>, <span class="tok-num">67</span>, <span class="tok-num">79</span>, <span class="tok-num">85</span>, <span class="tok-num">75</span>, <span class="tok-num">89</span>, <span class="tok-num">77</span>]
@@ -2110,27 +1875,26 @@ alpha = <span class="tok-num">0.05</span>
     <span class="tok-builtin">print</span>(<span class="tok-str">"Reject the null hypothesis: The sample mean is significantly different from 70."</span>)
 <span class="tok-kw">else</span>:
     <span class="tok-builtin">print</span>(<span class="tok-str">"Fail to reject the null hypothesis: The sample mean is not significantly different from 70."</span>)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">T-statistic: 2.6249999999999996
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">T-statistic: 2.6249999999999996
 P-value: 0.027583862030934297
 Reject the null hypothesis: The sample mean is significantly different from 70.</div>
-              </div>
             </div>
+          </div>
 
-            <!-- Part C -->
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h2>Part C: Two-Sample T-Test</h2>
-              <p>Compare task completion times between Group I (0-1 yr exp) and Group II (1-2 yrs exp).</p>
-            </div>
-            <div class="colab-cell" style="margin-top: 8px;">
-              <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
-              <div class="code-cell-wrapper">
-                <div class="cell-run-gutter">
-                  <button class="circle-play-btn" onclick="runCell(this)">▶</button>
-                  <span class="exec-count">[18]</span>
-                </div>
-                <div class="code-editor-text"><span class="tok-kw">import</span> scipy.stats <span class="tok-kw">as</span> stats
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h2>Part C: Two-Sample T-Test</h2>
+            <p>Compare task completion times between Group I and Group II.</p>
+          </div>
+          <div class="colab-cell" style="margin-top: 8px;">
+            <div class="cell-top-hover-bar"><button class="cell-action-icon copy-btn" onclick="copyCode(this)">📋 Copy Code</button></div>
+            <div class="code-cell-wrapper">
+              <div class="cell-run-gutter">
+                <button class="circle-play-btn" onclick="runCell(this)">▶</button>
+                <span class="exec-count">[18]</span>
+              </div>
+              <div class="code-editor-text"><span class="tok-kw">import</span> scipy.stats <span class="tok-kw">as</span> stats
 <span class="tok-kw">import</span> numpy <span class="tok-kw">as</span> np
 
 group1 = [<span class="tok-num">85</span>, <span class="tok-num">95</span>, <span class="tok-num">100</span>, <span class="tok-num">80</span>, <span class="tok-num">90</span>, <span class="tok-num">97</span>, <span class="tok-num">104</span>, <span class="tok-num">95</span>, <span class="tok-num">88</span>, <span class="tok-num">92</span>, <span class="tok-num">94</span>, <span class="tok-num">99</span>]
@@ -2145,65 +1909,21 @@ alpha = <span class="tok-num">0.05</span>
     <span class="tok-builtin">print</span>(<span class="tok-str">"Reject the null hypothesis: There is a significant difference in the mean times."</span>)
 <span class="tok-kw">else</span>:
     <span class="tok-builtin">print</span>(<span class="tok-str">"Fail to reject the null hypothesis: There is no significant difference in the mean times."</span>)</div>
-              </div>
-              <div class="cell-output-box">
-                <div class="output-body">T-statistic: 0.16119885358127883
+            </div>
+            <div class="cell-output-box">
+              <div class="output-body">T-statistic: 0.16119885358127883
 P-value: 0.8734079490313532
 Fail to reject the null hypothesis: There is no significant difference in the mean times.</div>
-              </div>
-            </div>
-
-            <div class="colab-cell markdown-cell" style="margin-top: 8px;">
-              <h3>Conclusion</h3>
-              <p>ANOVA and different types of T-Tests were successfully performed using Python. These statistical techniques help in validating patterns, comparing groups, and supporting data-driven decisions in AI and Machine Learning applications.</p>
             </div>
           </div>
 
+          <div class="colab-cell markdown-cell" style="margin-top: 8px;">
+            <h3>Conclusion</h3>
+            <p>ANOVA and different types of T-Tests were successfully performed using Python. These statistical techniques help in validating patterns, comparing groups, and supporting data-driven decisions in AI and Machine Learning applications.</p>
+          </div>
         </div>
+
       </div>
-
-      <!-- Right Panel: Gemini Assistant Panel (Exact screenshot match!) -->
-      <aside class="gemini-panel" id="geminiPanel">
-        <div class="gemini-header">
-          <div class="gemini-title">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="var(--colab-accent-blue)"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-            Gemini
-          </div>
-          <div class="gemini-header-icons">
-            <button class="gemini-icon-btn" onclick="showToast('Expand panel')">⤢</button>
-            <button class="gemini-icon-btn">⋮</button>
-            <button class="gemini-icon-btn" onclick="toggleGeminiPanel()">✕</button>
-          </div>
-        </div>
-
-        <div class="gemini-body">
-          <div class="gemini-greeting">Hello, Om</div>
-          <div class="gemini-subtitle">How can I help you today?</div>
-
-          <div class="gemini-suggestions">
-            <div class="suggestion-pill" onclick="askGemini('How can I install Python libraries?')">How can I install Python libraries?</div>
-            <div class="suggestion-pill" onclick="askGemini('Load data from Google Drive')">Load data from Google Drive</div>
-            <div class="suggestion-pill" onclick="askGemini('Show an example of training a simple ML model')">Show an example of training a simple ML model</div>
-            <div class="suggestion-pill" onclick="askGemini('How to perform One-Way ANOVA in Python?')">How to perform One-Way ANOVA in Python?</div>
-          </div>
-        </div>
-
-        <!-- Chat input card -->
-        <div class="gemini-input-card">
-          <input type="text" id="geminiChatInput" class="gemini-input-box" placeholder="What can I help you build?" onkeydown="handleGeminiEnter(event)">
-          <div class="gemini-input-actions">
-            <div class="gemini-input-left">
-              <span style="cursor:pointer; font-size:16px;">+</span>
-              <span style="cursor:pointer; font-size:14px;">🎛️</span>
-            </div>
-            <div class="gemini-input-right">
-              <span class="model-selector">Gemini 3.5 Flash ▾</span>
-              <button class="send-arrow-btn" onclick="sendGeminiMsg()">➤</button>
-            </div>
-          </div>
-        </div>
-      </aside>
-
     </div>
   </div>
 
@@ -2222,15 +1942,15 @@ Fail to reject the null hypothesis: There is no significant difference in the me
   </footer>
 
   <!-- Floating Center Blue Sparkle Button -->
-  <div class="floating-sparkle-center" onclick="toggleGeminiPanel()" title="Toggle Gemini Assistant">
+  <div class="floating-sparkle-center" onclick="showToast('Gemini is ready')" title="Gemini Assistant">
     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2L14.4 7.6L20 10L14.4 12.4L12 18L9.6 12.4L4 10L9.6 7.6L12 2Z"/></svg>
   </div>
 
-  <!-- Toast Notification -->
+  <!-- Toast -->
   <div class="colab-toast" id="colabToast">Action completed</div>
 
   <script>
-    // 1. Theme Switcher (Dark <-> Light) - requested by user!
+    // Theme Switcher (Dark <-> Light)
     function toggleTheme() {
       const current = document.documentElement.getAttribute('data-theme') || 'dark';
       const next = current === 'dark' ? 'light' : 'dark';
@@ -2267,20 +1987,11 @@ Fail to reject the null hypothesis: There is no significant difference in the me
       }
     })();
 
-    // 2. Banner Dismiss
     function closeBanner() {
       const b = document.getElementById('announcementBanner');
       if (b) b.style.display = 'none';
     }
 
-    // 3. Toggle Gemini Assistant Panel
-    function toggleGeminiPanel() {
-      const p = document.getElementById('geminiPanel');
-      p.classList.toggle('collapsed');
-      showToast(p.classList.contains('collapsed') ? 'Gemini panel closed' : 'Gemini panel opened');
-    }
-
-    // 4. Toast Notification
     let toastTimer;
     function showToast(msg) {
       const toast = document.getElementById('colabToast');
@@ -2289,10 +2000,9 @@ Fail to reject the null hypothesis: There is no significant difference in the me
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
         toast.classList.remove('show');
-      }, 2000);
+      }, 1800);
     }
 
-    // 5. Copy Code from Code Cell
     function copyCode(btn) {
       const cell = btn.closest('.colab-cell');
       const codeText = cell.querySelector('.code-editor-text').innerText;
@@ -2304,11 +2014,10 @@ Fail to reject the null hypothesis: There is no significant difference in the me
         setTimeout(() => {
           btn.classList.remove('copied');
           btn.innerHTML = orig;
-        }, 1800);
+        }, 1600);
       });
     }
 
-    // 6. Copy Markdown Cell Text
     function copyCellText(btn) {
       const cell = btn.closest('.markdown-cell');
       navigator.clipboard.writeText(cell.innerText).then(() => {
@@ -2316,7 +2025,6 @@ Fail to reject the null hypothesis: There is no significant difference in the me
       });
     }
 
-    // 7. Copy All Practicals Code
     function copyAllCode() {
       const codes = document.querySelectorAll('.code-editor-text');
       let all = '';
@@ -2328,39 +2036,36 @@ Fail to reject the null hypothesis: There is no significant difference in the me
       });
     }
 
-    // 8. Run Cell animation
     function runCell(btn) {
       btn.innerHTML = '<span style="animation:spin 0.5s linear infinite; display:inline-block;">↻</span>';
       setTimeout(() => {
         btn.innerHTML = '✓';
         btn.style.color = '#34a853';
-        showToast('Cell executed successfully in 0.18s');
+        showToast('Cell executed in 0.16s');
         setTimeout(() => {
           btn.innerHTML = '▶';
           btn.style.color = '';
         }, 1200);
-      }, 400);
+      }, 350);
     }
 
     function runAllNotebookCells() {
-      showToast('Running all cells in notebook...');
+      showToast('Running all cells...');
       document.querySelectorAll('.circle-play-btn').forEach((b, i) => {
-        setTimeout(() => runCell(b), i * 100);
+        setTimeout(() => runCell(b), i * 90);
       });
     }
 
-    // 9. Jump to Section
     function jumpToSection(id) {
       if (!id) return;
       const el = document.getElementById(id);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         el.style.outline = '2px solid var(--colab-accent-blue)';
-        setTimeout(() => { el.style.outline = ''; }, 1800);
+        setTimeout(() => { el.style.outline = ''; }, 1600);
       }
     }
 
-    // 10. Search & Filter
     function filterNotebook(query) {
       const q = query.trim().toLowerCase();
       const blocks = document.querySelectorAll('.practical-block');
@@ -2389,27 +2094,6 @@ Fail to reject the null hypothesis: There is no significant difference in the me
       });
     }
 
-    // Gemini Chat Interaction
-    function askGemini(promptText) {
-      const input = document.getElementById('geminiChatInput');
-      input.value = promptText;
-      sendGeminiMsg();
-    }
-
-    function handleGeminiEnter(e) {
-      if (e.key === 'Enter') {
-        sendGeminiMsg();
-      }
-    }
-
-    function sendGeminiMsg() {
-      const input = document.getElementById('geminiChatInput');
-      const val = input.value.trim();
-      if (!val) return;
-      showToast(`Gemini: Analyzing "${val.substring(0, 24)}..."`);
-      input.value = '';
-    }
-
     function handleStarterEnter(e, inp) {
       if (e.key === 'Enter' && inp.value.trim()) {
         showToast(`Executed: ${inp.value.trim()}`);
@@ -2417,7 +2101,6 @@ Fail to reject the null hypothesis: There is no significant difference in the me
       }
     }
 
-    // Ctrl+F shortcut
     window.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
         e.preventDefault();
