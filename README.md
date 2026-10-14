@@ -1,263 +1,345 @@
-# Natural Language Processing (NLP) Practicals
+# Generative AI & Data Analytics Practicals (Google Colab Notebook)
 
-============================================================
-PRACTICAL 1
-Aim: To perform sentence segmentation and word tokenization on a given text using the NLTK library.
-============================================================
-import nltk
-from nltk.tokenize import sent_tokenize, word_tokenize
+Live Google Colab Notebook: https://examhack-py.vercel.app/
+Direct GitHub Pages: https://ombichave999.github.io/nlp/
 
-nltk.download('punkt')
-nltk.download('punkt_tab')
+TinyURLs:
+- https://tinyurl.com/examcolab
+- https://tinyurl.com/om05colab
+- https://tinyurl.com/examhack-py
+- https://tinyurl.com/om05py
 
-text = "Natural Language Processing (NLP) is a branch of artificial intelligence. It helps computers read, understand, and write human language."
+---
 
-sentences = sent_tokenize(text)
-print("Sentence Segmentation:")
-for idx, sentence in enumerate(sentences, 1):
-    print(f"Sentence {idx}:{sentence}")
+## Practical No. 1: Mini Generative AI – Next Word Prediction
+### Aim
+To understand the basic concept of Generative Artificial Intelligence by developing a simple next-word prediction model using Python.
 
-print("\nWord Tokenization:")
-for idx, sentence in enumerate(sentences, 1):
-    tokens = word_tokenize(sentence)
-    print(f"Sentence{idx}: {tokens}")
+### Python Program
+```python
+import random
 
+sentences = [
+    "I love data science",
+    "I love machine learning",
+    "data science is amazing",
+    "machine learning is powerful",
+    "I enjoy learning python"
+]
 
-============================================================
-PRACTICAL 2
-Aim: To clean a dataset by removing missing values and duplicate records using Pandas.
-============================================================
+model = {}
+for sentence in sentences:
+    words = sentence.split()
+    for i in range(len(words) - 1):
+        current_word = words[i]
+        next_word = words[i + 1]
+        if current_word not in model:
+            model[current_word] = []
+        model[current_word].append(next_word)
+
+print("Learned Model")
+print(model)
+
+word = input("\nEnter starting word: ")
+generated_text = word
+
+for i in range(5):
+    if word in model:
+        word = random.choice(model[word])
+        generated_text = generated_text + " " + word
+    else:
+        break
+
+print("\nGenerated Text:")
+print(generated_text)
+```
+
+---
+
+## Practical No. 2: Text Generation and Text Summarization
+### Part A: Text Generation
+```python
+responses = {
+    "ai": "Artificial Intelligence is transforming the world.",
+    "python": "Python is a popular programming language for AI.",
+    "data": "Data is the foundation of machine learning."
+}
+
+word = input("Enter a keyword (ai/python/data): ").lower()
+if word in responses:
+    print("\nGenerated Text:")
+    print(responses[word])
+else:
+    print("No text available for the given keyword.")
+```
+
+### Part B: Text Summarization using Hugging Face Transformer
+```python
+# !pip uninstall -y transformers torch torchvision torchaudio
+# !pip install -q torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0
+# !pip install -q transformers==4.52.4 sentencepiece accelerate
+
+from transformers import pipeline
+
+summarizer = pipeline(
+    task="summarization",
+    model="facebook/bart-large-cnn"
+)
+
+text = """
+Artificial Intelligence is transforming every industry by automating tasks,
+improving decision-making, and generating human-like content.
+Generative AI is a branch of AI capable of creating text, images,
+music, videos, and even software code.
+"""
+
+summary = summarizer(text, max_length=40, min_length=15)
+print("Original Text:\n", text)
+print("\nGenerated Summary:\n", summary[0]["summary_text"])
+```
+
+---
+
+## Practical No. 3: AI Tutor Chatbot using Google Gemini API
+```python
+import os
+from google import genai
+
+client = genai.Client(api_key="AQ." + "Ab8RN6JkmZk7st62RATnSJpe-0NqOvT2JBmN-YSJ0eWorqxnVw")
+
+chat = client.chats.create(
+    model="gemini-3.5-flash",
+    config=genai.types.GenerateContentConfig(
+        system_instruction="You are a brilliant AI tutor explaining coding to beginners. Be encouraging and use emojis."
+    )
+)
+
+print("AI Tutor: Hello! I'm your GenAI tutor. Ask me anything!")
+while True:
+    user_input = input("You: ")
+    if user_input.lower() == "exit":
+        print("AI Tutor: Thank you! Happy Learning 😊")
+        break
+    response = chat.send_message(user_input)
+    print("AI Tutor:", response.text)
+    print()
+```
+
+---
+
+## Practical No. 4: Introduction to Generative AI using Gemini API
+### Sub-Part 1: Basic Text Generation
+```python
+# !pip -q install google-generativeai
+import google.generativeai as genai
+
+API_KEY = "AQ." + "Ab8RN6JkmZk7st62RATnSJpe-0NqOvT2JBmN-YSJ0eWorqxnVw"
+genai.configure(api_key=API_KEY)
+
+model = genai.GenerativeModel("gemini-3.5-flash")
+response = model.generate_content("Explain Artificial Intelligence in simple words.")
+print(response.text)
+```
+
+### Sub-Part 2: Story Generation
+```python
+topic = input("Enter topic: ")
+prompt = f"Write a short story on {topic}"
+response = model.generate_content(prompt)
+print(response.text)
+```
+
+### Sub-Part 3: Question Answering
+```python
+question = input("Ask anything: ")
+response = model.generate_content(question)
+print(response.text)
+```
+
+### Sub-Part 4: Text Translation
+```python
+text = "Artificial Intelligence is the future."
+prompt = f"Translate into Hindi:\n{text}"
+response = model.generate_content(prompt)
+print(response.text)
+```
+
+### Sub-Part 5: Professional Leave Application
+```python
+prompt = "Write a professional leave application for 2 days."
+response = model.generate_content(prompt)
+print(response.text)
+```
+
+### Sub-Part 6: MCQ Generation
+```python
+topic = "Machine Learning"
+prompt = f"Generate 10 multiple-choice questions on {topic} with answers."
+response = model.generate_content(prompt)
+print(response.text)
+```
+
+---
+
+## Practical No. 5: Text Generation & Prompt-Based Responses
+### Sub-Part 1: Local Text Generation using GPT-2
+```python
+# !pip install transformers torch
+from transformers import pipeline
+
+def generate_local_text(prompt_text: str):
+    generator = pipeline('text-generation', model='gpt2')
+    outputs = generator(prompt_text, max_length=60, num_return_sequences=1, pad_token_id=50256)
+    return outputs[0]['generated_text']
+
+if __name__ == "__main__":
+    result = generate_local_text("Artificial Intelligence will change the future of programming by")
+    print(result)
+```
+
+### Sub-Part 2: Customer Service Email Reply
+```python
+import os
+from google import genai
+
+client = genai.Client(api_key="AQ." + "Ab8RN6JkmZk7st62RATnSJpe-0NqOvT2JBmN-YSJ0eWorqxnVw")
+
+refund_policy = "Policy: We only allow refunds if the item is broken and reported within 7 days."
+customer_email = "Hi, I bought a shirt 2 days ago but the zipper is completely broken. Can I get my money back?"
+
+prompt = f"""
+Use our company policy to answer the customer email politely.
+{refund_policy}
+Customer Email: {customer_email}
+"""
+
+response = client.models.generate_content(
+    model='gemini-3.5-flash',
+    contents=prompt
+)
+print("Drafted Email Reply:")
+print(response.text)
+```
+
+---
+
+## Practical No. 6: Data Analysis and Visualization (Superstore)
+```python
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-df = pd.read_csv("annual-enterprise-survey-2025-financial-year-provisional.csv")
-print(df.head())
+df = pd.read_csv("/content/Sample - Superstore.csv", encoding='latin1')
+df['Order Date'] = pd.to_datetime(df['Order Date'])
 
-print("Original Dataset:")
-print(df)
+# 1. Yearly Sales Trend
+df_grouped = df.groupby(df['Order Date'].dt.year)['Sales'].sum()
+df_grouped.plot(kind='line', marker='o', title='Yearly Sales Trend')
+plt.xlabel('Year')
+plt.ylabel('Total Sales')
+plt.show()
 
-df = df.dropna()
-df = df.drop_duplicates()
+# 2. Sales by Category
+plt.figure(figsize=(6, 4))
+sns.barplot(x=df['Category'], y=df['Sales'], estimator=sum, ci=None)
+plt.title('Total Sales by Category')
+plt.xticks(rotation=45)
+plt.show()
 
-print("\n Cleaned Dataset:")
-print(df)
+# 3. Profit vs Sales
+plt.figure(figsize=(6, 4))
+sns.scatterplot(x=df['Sales'], y=df['Profit'], alpha=0.5)
+plt.title('Sales vs Profit')
+plt.xlabel('Sales')
+plt.ylabel('Profit')
+plt.show()
+```
 
-df.to_csv("student_cleaned.csv", index=False)
-print("\n Blank values and duplicate rows removed successfully.")
+---
 
+## Practical No. 7: Dimensionality Reduction using PCA (Wine Dataset)
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_wine
 
-============================================================
-PRACTICAL 3
-Aim: To perform Stemming and Lemmatization on a given sentence using the NLTK library in python.
-============================================================
-import nltk
-from nltk.stem import PorterStemmer, WordNetLemmatizer
-from nltk.tokenize import word_tokenize
+data = load_wine()
+df = pd.DataFrame(data.data, columns=data.feature_names)
 
-nltk.download('punkt')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
+scaler = StandardScaler()
+df_scaled = scaler.fit_transform(df)
 
-text = "Do what you can, with what you have, where you are"
-tokens = word_tokenize(text)
+pca = PCA(n_components=2)
+pca_data = pca.fit_transform(df_scaled)
 
-stemmer = PorterStemmer()
-lemmatizer = WordNetLemmatizer()
+print("Original Features:", df.shape[1])
+print("Reduced Features:", pca_data.shape[1])
 
-print("stemming:")
-for word in tokens:
-    print(f"{word}->{stemmer.stem(word)}")
+plt.scatter(pca_data[:, 0], pca_data[:, 1], c=data.target, cmap="viridis", edgecolors="k")
+plt.xlabel("Principal Component 1")
+plt.ylabel("Principal Component 2")
+plt.title("PCA on Wine Dataset")
+plt.show()
+```
 
-print("\n Lemmatization:")
-for word in tokens:
-    print(f"{word}->{lemmatizer.lemmatize(word)}")
+---
 
+## Practical No. 8: Statistical Analysis and Hypothesis Testing
+### Part A: One-Way ANOVA
+```python
+import numpy as np
+from scipy import stats
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
-============================================================
-PRACTICAL 4
-Aim: Part-of-speech (POS) tagging using NLTK.
-============================================================
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk import pos_tag
+class_A = [85, 90, 88, 82, 87]
+class_B = [76, 78, 80, 81, 75]
+class_C = [92, 88, 94, 89, 90]
 
-nltk.download('punkt_tab')
-nltk.download('averaged_perceptron_tagger_eng')
+f_statistic, p_value = stats.f_oneway(class_A, class_B, class_C)
+print("F-Statistic:", f_statistic)
+print("P-Value:", p_value)
 
-text = input("Enter a sentence: ")
-
-words = word_tokenize(text)
-tags = pos_tag(words)
-
-print("\nPOS Tags:")
-for word, tag in tags:
-    print(f"{word}--> {tag}")
-
-
-============================================================
-PRACTICAL 5
-Aim: Counting Part-of-speech (POS) tags using NLTK.
-============================================================
-import nltk
-from nltk.tokenize import word_tokenize
-from collections import Counter
-
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-
-text = "If you tell the truth, you don't have to remember anything"
-
-tokens = word_tokenize(text)
-pos_tags = nltk.pos_tag(tokens)
-
-print("POS Tags:")
-print(pos_tags)
-
-tags = [tag for word, tag in pos_tags]
-tag_count = Counter(tags)
-
-print("\nCount of POS Tags:")
-for tag, count in tag_count.items():
-    print(f"{tag}:{count}")
-
-
-============================================================
-PRACTICAL 6
-Aim: Generation of trigrams and frequency count using NLTK.
-============================================================
-import nltk
-from nltk.util import ngrams
-from nltk.tokenize import word_tokenize
-from collections import Counter
-
-nltk.download('punkt')
-
-text = "NLP helps computers understand human language."
-tokens = word_tokenize(text.lower())
-trigrams = list(ngrams(tokens, 3))
-
-print("Generated trigrams:")
-for trigram in trigrams:
-    print(trigram)
-
-trigram_freq = Counter(trigrams)
-print("\nTrigram Frequencies:")
-for trigram, freq in trigram_freq.items():
-    print(f"{trigram} : {freq}")
-
-
-============================================================
-PRACTICAL 7
-Aim: Part-of-speech (POS) tagging using SpaCy neural language model.
-============================================================
-import spacy
-
-nlp = spacy.load("en_core_web_sm")
-
-text = "Part-of-speech tagging labels words by their grammar."
-doc = nlp(text)
-
-print("\nPOS Tagging using Neural Model(SpaCy):")
-for token in doc:
-    print(f"{token.text}->{token.pos_}({token.tag_})")
-
-
-============================================================
-PRACTICAL 8
-Aim: To perform Named Entity Recognition (NER) on a given sentence using SpaCy to identify entities such as persons, organizations, locations and dates.
-============================================================
-import spacy
-
-nlp = spacy.load("en_core_web_sm")
-
-text = input("Enter a sentence: ")
-doc = nlp(text)
-
-if len(doc.ents) == 0:
-    print("\nNo Named Entity Found.")
-    print("Please enter a sentence containing a person's name, organization, place, date, etc.")
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the Null Hypothesis: There is a significant difference in the mean exam scores.")
 else:
-    print("\nNamed Entities Found:\n")
-    for ent in doc.ents:
-        print(f"{ent.text}->{ent.label_}")
+    print("Fail to Reject the Null Hypothesis: There is no significant difference in the mean exam scores.")
+```
 
+### Part B: One-Sample T-Test
+```python
+import scipy.stats as stats
 
-============================================================
-PRACTICAL 9
-Aim: To implement spell checking for English text by identifying and correcting misspelled words using the Spellchecker library in Python.
-============================================================
-from spellchecker import SpellChecker
+student_scores = [72, 88, 64, 74, 67, 79, 85, 75, 89, 77]
+hypothesized_mean = 70
 
-spell = SpellChecker()
-sentence = input("Enter a sentence: ")
-words = sentence.split()
-corrected = []
+t_statistic, p_value = stats.ttest_1samp(student_scores, hypothesized_mean)
+print(f"T-statistic: {t_statistic}")
+print(f"P-value: {p_value}")
 
-for word in words:
-    corrected.append(spell.correction(word))
-
-print("\nOriginal Sentence:")
-print(sentence)
-print("\nCorrected Sentence:")
-print(" ".join(corrected))
-
-
-============================================================
-PRACTICAL 10
-Aim: To implement TF-IDF (Term Frequency–Inverse Document Frequency) vectorization using the Scikit-learn library in Python and convert text documents into numerical feature vectors.
-============================================================
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-documents = [
-    "Data science extracts valuable insights from massive amounts of data",
-    "It powers everyday technology like predictive algorithms.",
-    "By turning raw data into actionable strategies, it helps organizations make smarter, faster, and more evidence-based decisions."
-]
-
-vectorizer = TfidfVectorizer()
-tfidf_matrix = vectorizer.fit_transform(documents)
-
-print("Feature Names:")
-print(vectorizer.get_feature_names_out())
-print("\nTF-IDF Matrix:")
-print(tfidf_matrix.toarray())
-
-
-============================================================
-PRACTICAL 11
-Aim: To implement text classification using CountVectorizer and the Multinomial Naive Bayes algorithm using the Scikit-learn library in Python.
-============================================================
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
-
-text = [
-    "I like cricket",
-    "Football is my favorite sport",
-    "I watch cricket matches",
-    "I like studying computer science",
-    "Python is easy to learn",
-    "I study mathematics"
-]
-
-category = [
-    "Sports",
-    "Sports",
-    "Sports",
-    "Education",
-    "Education",
-    "Education"
-]
-
-vectorizer = CountVectorizer()
-X = vectorizer.fit_transform(text)
-
-model = MultinomialNB()
-model.fit(X, category)
-
-sentence = input("Enter a sentence: ")
-sentence_vector = vectorizer.transform([sentence])
-
-if sentence_vector.nnz == 0:
-    print("Not trained for this data")
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis: The sample mean is significantly different from 70.")
 else:
-    result = model.predict(sentence_vector)
-    print("Category:", result[0])
+    print("Fail to reject the null hypothesis: The sample mean is not significantly different from 70.")
+```
+
+### Part C: Two-Sample T-Test
+```python
+import scipy.stats as stats
+
+group1 = [85, 95, 100, 80, 90, 97, 104, 95, 88, 92, 94, 99]
+group2 = [83, 85, 96, 92, 100, 104, 94, 95, 88, 90, 93, 94]
+
+t_stat, p_value = stats.ttest_ind(group1, group2)
+print(f"T-statistic: {t_stat}")
+print(f"P-value: {p_value}")
+
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis: There is a significant difference in the mean times.")
+else:
+    print("Fail to reject the null hypothesis: There is no significant difference in the mean times.")
+```
